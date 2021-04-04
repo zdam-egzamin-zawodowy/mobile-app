@@ -24,6 +24,7 @@ DerivedData
 # Android/IntelliJ
 #
 build/
+release/
 .idea
 .gradle
 local.properties
@@ -59,3 +60,4 @@ buck-out/
 /ios/Pods/
 
 remote-schema.graphql
+/android/prod.jks

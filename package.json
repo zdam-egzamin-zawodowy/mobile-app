@@ -21,6 +21,7 @@
     "@react-native-picker/picker": "^1.14.0",
     "@react-navigation/native": "^5.9.4",
     "@react-navigation/stack": "^5.14.4",
+    "date-fns": "^2.19.0",
     "graphql": "^15.5.0",
     "lodash": "^4.17.21",
     "native-base": "^3.0.0-next.36",
@@ -32,6 +33,7 @@
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.0.0",
     "react-native-svg": "^12.1.0",
+    "react-native-unimodules": "~0.10.1",
     "styled-components": "^5.2.3",
     "styled-system": "^5.1.5"
   },

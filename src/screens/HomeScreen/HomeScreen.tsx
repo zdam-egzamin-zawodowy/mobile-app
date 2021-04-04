@@ -1,11 +1,13 @@
 import React from 'react';
-import { View, Heading } from 'native-base';
+import { Container, Content, H1 } from 'native-base';
 
 const HomeScreen = () => {
   return (
-    <View>
-      <Heading color="primary.200">Zdam Egzamin Zawodowy</Heading>
-    </View>
+    <Container>
+      <Content>
+        <H1>Zdam Egzamin Zawodowy</H1>
+      </Content>
+    </Container>
   );
 };
 

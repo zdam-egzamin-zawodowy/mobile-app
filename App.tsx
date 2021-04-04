@@ -8,7 +8,7 @@
  * @format
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -18,6 +18,7 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import RNBootSplash from 'react-native-bootsplash';
 
 import {
   Colors,
@@ -59,7 +60,9 @@ const Section: React.FC<{
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
-
+  useEffect(() => {
+    RNBootSplash.hide({ fade: true });
+  }, []);
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };

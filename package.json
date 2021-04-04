@@ -10,6 +10,9 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@react-native-firebase/analytics": "^11.2.0",
+    "@react-native-firebase/app": "^11.2.0",
+    "@react-native-firebase/crashlytics": "^11.2.0",
     "react": "17.0.1",
     "react-native": "0.64.0"
   },

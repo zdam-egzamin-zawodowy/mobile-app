@@ -1,11 +1,11 @@
 import 'react-native-gesture-handler';
 import React, { useEffect, useRef } from 'react';
-import { Text, View } from 'react-native';
+import { ApolloProvider } from '@apollo/client';
 import RNBootSplash from 'react-native-bootsplash';
 import { extendTheme, NativeBaseProvider } from 'native-base';
-import createClient from 'libs/graphql/createClient';
+import { createClient } from 'libs/graphql';
 import { API_URI } from 'config/api';
-import { ApolloProvider } from '@apollo/client';
+import Navigation from './Navigation';
 
 const App = () => {
   const client = useRef(createClient(API_URI)).current;
@@ -26,9 +26,7 @@ const App = () => {
   return (
     <NativeBaseProvider theme={theme}>
       <ApolloProvider client={client}>
-        <View>
-          <Text>test</Text>
-        </View>
+        <Navigation />
       </ApolloProvider>
     </NativeBaseProvider>
   );

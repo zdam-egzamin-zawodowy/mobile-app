@@ -7,7 +7,9 @@ import {
 } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 
-const createClient = (uri: string): ApolloClient<NormalizedCacheObject> => {
+export const createClient = (
+  uri: string,
+): ApolloClient<NormalizedCacheObject> => {
   return new ApolloClient({
     queryDeduplication: true,
     cache: new InMemoryCache(),
@@ -32,5 +34,3 @@ const createClient = (uri: string): ApolloClient<NormalizedCacheObject> => {
     ]),
   });
 };
-
-export default createClient;

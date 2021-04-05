@@ -1,15 +1,17 @@
 import React from 'react';
-import { RouteProp } from '@react-navigation/native';
+import { polishPlurals } from 'polish-plurals';
 import { NetworkStatus, useQuery } from '@apollo/client';
+import { RouteProp } from '@react-navigation/native';
 import { useVariables } from 'libs/native-base';
 import { Query, Scalars } from 'libs/graphql';
 import { AppStackParamList, Screen } from 'config/routing';
 import { QUERY_GENERATE_TEST_SIMILAR_QUALIFICATIONS_QUALIFICATION } from './queries';
 
+import { StyleSheet } from 'react-native';
 import { Container, Content, Spinner, View } from 'native-base';
 import QualificationNotFound from './components/QualificationNotFound/QualificationNotFound';
 import Header from './components/Header/Header';
-import { polishPlurals } from 'polish-plurals';
+import Suggestions from './components/Suggestions/Suggestions';
 
 export interface TestScreenProps {
   route: RouteProp<AppStackParamList, Screen.Test>;
@@ -31,7 +33,7 @@ const TestScreen = ({ route }: TestScreenProps) => {
     variables: {
       qualificationID: route.params.qualificationID,
       limitTest: route.params.limit,
-      limitSuggestions: 6,
+      limitSuggestions: 12,
     },
     notifyOnNetworkStatusChange: true,
   });
@@ -46,11 +48,13 @@ const TestScreen = ({ route }: TestScreenProps) => {
           route.params.limit,
         )}`}
       />
-      <Content padder contentContainerStyle={{ flexGrow: 1 }}>
+      <Content padder contentContainerStyle={styles.contentContainer}>
         {loading || networkStatus === NetworkStatus.refetch ? (
           <Spinner color={variables.brandPrimary} />
         ) : data?.qualification ? (
-          <View></View>
+          <Suggestions
+            qualifications={data?.similarQualifications.items ?? []}
+          />
         ) : (
           <QualificationNotFound />
         )}
@@ -58,5 +62,11 @@ const TestScreen = ({ route }: TestScreenProps) => {
     </Container>
   );
 };
+
+const styles = StyleSheet.create({
+  contentContainer: {
+    flexGrow: 1,
+  },
+});
 
 export default TestScreen;

@@ -38,6 +38,7 @@ export const QUERY_GENERATE_TEST_SIMILAR_QUALIFICATIONS_QUALIFICATION = gql`
         name
         code
         slug
+        formula
       }
     }
   }

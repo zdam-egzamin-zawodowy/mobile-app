@@ -19,7 +19,7 @@ const Header = ({ onSearch }: HeaderProps) => {
     [search],
   );
   return (
-    <NBHeader searchBar rounded>
+    <NBHeader searchBar rounded hasSegment>
       <Item>
         <Icon name="ios-search" />
         <Input placeholder="Wyszukaj kwalifikację" onChangeText={setSearch} />

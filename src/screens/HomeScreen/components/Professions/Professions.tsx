@@ -1,13 +1,20 @@
 import React from 'react';
-import { List } from 'native-base';
+import { FlatListProps, RefreshControl } from 'react-native';
 import { Profession } from 'libs/graphql';
+
+import { List } from 'native-base';
 import Item from './Item';
 
-export interface ProfessionsProps {
+export interface ProfessionsProps
+  extends Pick<FlatListProps<Profession>, 'refreshing' | 'onRefresh'> {
   professions: Profession[];
 }
 
-const Professions = ({ professions }: ProfessionsProps) => {
+const Professions = ({
+  professions,
+  refreshing,
+  onRefresh,
+}: ProfessionsProps) => {
   return (
     <List
       dataArray={professions}
@@ -15,6 +22,12 @@ const Professions = ({ professions }: ProfessionsProps) => {
         return <Item profession={item} />;
       }}
       keyExtractor={item => item.id}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing ?? false}
+          onRefresh={onRefresh ?? (() => {})}
+        />
+      }
     />
   );
 };

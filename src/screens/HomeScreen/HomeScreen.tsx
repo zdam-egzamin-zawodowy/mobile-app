@@ -1,23 +1,26 @@
 import React, { useMemo, useState } from 'react';
 import { sortBy } from 'lodash';
-import { useQuery } from '@apollo/client';
+import { NetworkStatus, useQuery } from '@apollo/client';
 import { useVariables } from 'libs/native-base';
 import { Query, QueryProfessionsArgs } from 'libs/graphql';
 import { QUERY_PROFESSIONS } from './queries';
 
-import { Container, Spinner, Content } from 'native-base';
+import { Container, Content, Spinner } from 'native-base';
 import Professions from './components/Professions/Professions';
 import Header from './components/Header/Header';
+import ModeSelector, { Mode } from './components/ModeSelector/ModeSelector';
 
 const HomeScreen = () => {
   const [search, setSearch] = useState('');
+  const [mode, setMode] = useState(Mode.All);
   const variables = useVariables();
-  const { loading, data } = useQuery<
+  const { loading, data, refetch, networkStatus } = useQuery<
     Pick<Query, 'professions'>,
     QueryProfessionsArgs
   >(QUERY_PROFESSIONS, {
     fetchPolicy: 'cache-and-network',
     variables: { sort: ['name ASC'] },
+    notifyOnNetworkStatusChange: true,
   });
   const professions = useMemo(() => {
     return (data?.professions.items ?? [])
@@ -43,15 +46,21 @@ const HomeScreen = () => {
       .filter(profession => profession.qualifications.length > 0);
   }, [search, professions]);
 
+  console.log(networkStatus);
   return (
     <Container>
       <Header onSearch={setSearch} />
+      <ModeSelector mode={mode} onChangeMode={setMode} />
       {loading && professions.length === 0 ? (
-        <Content>
-          <Spinner color={variables.brandPrimary} />
+        <Content padder>
+          <Spinner color={variables.brandPrimary} size="large" />
         </Content>
       ) : (
-        <Professions professions={filteredProfessions} />
+        <Professions
+          professions={filteredProfessions}
+          refreshing={networkStatus === NetworkStatus.refetch}
+          onRefresh={refetch}
+        />
       )}
     </Container>
   );

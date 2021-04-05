@@ -263,7 +263,9 @@ export default {
   },
 
   // Segment
-  segmentBackgroundColor: platform === OS.IOS ? '#F8F8F8' : '#3F51B5',
+  get segmentBackgroundColor() {
+    return platform === OS.IOS ? '#F8F8F8' : this.brandPrimary;
+  },
   segmentActiveBackgroundColor: platform === OS.IOS ? '#007aff' : '#fff',
   segmentTextColor: platform === OS.IOS ? '#007aff' : '#fff',
   segmentActiveTextColor: platform === OS.IOS ? '#fff' : '#3F51B5',

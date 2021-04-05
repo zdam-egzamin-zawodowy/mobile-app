@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { sortBy } from 'lodash';
 import { NetworkStatus, useQuery } from '@apollo/client';
 import { useVariables } from 'libs/native-base';
+import { useSavedQualifications } from 'libs/savedqualifications';
 import { Query, QueryProfessionsArgs } from 'libs/graphql';
 import { QUERY_PROFESSIONS } from './queries';
 
@@ -14,6 +15,7 @@ const HomeScreen = () => {
   const [search, setSearch] = useState('');
   const [mode, setMode] = useState(Mode.All);
   const variables = useVariables();
+  const { isSaved } = useSavedQualifications();
   const { loading, data, refetch, networkStatus } = useQuery<
     Pick<Query, 'professions'>,
     QueryProfessionsArgs
@@ -31,7 +33,7 @@ const HomeScreen = () => {
       }));
   }, [data]);
   const filteredProfessions = useMemo(() => {
-    if (!search) {
+    if (!search && mode === Mode.All) {
       return professions;
     }
     return professions
@@ -39,12 +41,14 @@ const HomeScreen = () => {
         ...profession,
         qualifications: profession.qualifications.filter(
           qualification =>
-            qualification.name.toLowerCase().includes(search) ||
-            qualification.code.toLowerCase().includes(search),
+            (!search ||
+              qualification.name.toLowerCase().includes(search) ||
+              qualification.code.toLowerCase().includes(search)) &&
+            (mode === Mode.All || isSaved(qualification.id)),
         ),
       }))
       .filter(profession => profession.qualifications.length > 0);
-  }, [search, professions]);
+  }, [search, professions, mode, isSaved]);
 
   return (
     <Container>

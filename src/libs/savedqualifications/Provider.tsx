@@ -54,12 +54,21 @@ export const SavedQualificationsProvider = ({
     [setSavedQualifications],
   );
 
+  const isSaved = useCallback(
+    (id: number) => {
+      return savedQualifications.includes(id);
+    },
+    [savedQualifications],
+  );
+
   if (loading) {
     return null;
   }
 
   return (
-    <Context.Provider value={{ savedQualifications, saveQualification }}>
+    <Context.Provider
+      value={{ savedQualifications, saveQualification, isSaved }}
+    >
       {children}
     </Context.Provider>
   );

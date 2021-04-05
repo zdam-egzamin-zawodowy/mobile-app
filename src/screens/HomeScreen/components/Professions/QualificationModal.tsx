@@ -88,6 +88,9 @@ const QualificationModal = ({
                       index === QUESTIONS.length - 1 ? {} : styles.marginRight,
                     ]}
                     onPress={() => {
+                      if (onPressBackdrop) {
+                        onPressBackdrop();
+                      }
                       navigation.navigate(Screen.Test, {
                         qualificationID: qualification?.id ?? 0,
                         limit: question,

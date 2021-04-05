@@ -1,11 +1,12 @@
 import React, { useRef, useState } from 'react';
+import { useUpdateEffect } from 'react-use';
 import { Maybe, Profession, Qualification } from 'libs/graphql';
 
-import { FlatListProps, RefreshControl } from 'react-native';
+import { FlatListProps, RefreshControl, StyleSheet } from 'react-native';
 import { List, View } from 'native-base';
 import Item from './Item';
 import QualificationModal from './QualificationModal';
-import { useUpdateEffect } from 'react-use';
+import ListEmpty from './ListEmpty';
 
 export interface ProfessionsProps
   extends Pick<FlatListProps<Profession>, 'refreshing' | 'onRefresh'> {
@@ -28,10 +29,11 @@ const Professions = ({
   }, [professions]);
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       <List
         ref={listRef}
         dataArray={professions}
+        contentContainerStyle={styles.contentContainer}
         renderItem={({ item }: { item: Profession }) => {
           return (
             <Item
@@ -43,6 +45,7 @@ const Professions = ({
             />
           );
         }}
+        ListEmptyComponent={<ListEmpty />}
         keyExtractor={item => item.id}
         refreshControl={
           <RefreshControl
@@ -59,5 +62,14 @@ const Professions = ({
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  contentContainer: {
+    flexGrow: 1,
+  },
+});
 
 export default Professions;

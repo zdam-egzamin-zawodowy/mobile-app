@@ -7,11 +7,12 @@ import { Query, Scalars } from 'libs/graphql';
 import { AppStackParamList, Screen } from 'config/routing';
 import { QUERY_GENERATE_TEST_SIMILAR_QUALIFICATIONS_QUALIFICATION } from './queries';
 
-import { StyleSheet } from 'react-native';
-import { Container, Content, Spinner, View } from 'native-base';
+import { Container, Spinner } from 'native-base';
 import QualificationNotFound from './components/QualificationNotFound/QualificationNotFound';
 import Header from './components/Header/Header';
 import Suggestions from './components/Suggestions/Suggestions';
+import Test from './components/Test/Test';
+import Content from './components/Content/Content';
 
 export interface TestScreenProps {
   route: RouteProp<AppStackParamList, Screen.Test>;
@@ -48,25 +49,23 @@ const TestScreen = ({ route }: TestScreenProps) => {
           route.params.limit,
         )}`}
       />
-      <Content padder contentContainerStyle={styles.contentContainer}>
-        {loading || networkStatus === NetworkStatus.refetch ? (
+      {loading || networkStatus === NetworkStatus.refetch ? (
+        <Content>
           <Spinner color={variables.brandPrimary} />
-        ) : data?.qualification ? (
+        </Content>
+      ) : data?.qualification ? (
+        data?.generateTest?.length ? (
+          <Test questions={data.generateTest} />
+        ) : (
           <Suggestions
             qualifications={data?.similarQualifications.items ?? []}
           />
-        ) : (
-          <QualificationNotFound />
-        )}
-      </Content>
+        )
+      ) : (
+        <QualificationNotFound />
+      )}
     </Container>
   );
 };
-
-const styles = StyleSheet.create({
-  contentContainer: {
-    flexGrow: 1,
-  },
-});
 
 export default TestScreen;

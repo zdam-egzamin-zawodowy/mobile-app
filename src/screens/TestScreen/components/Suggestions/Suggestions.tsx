@@ -7,6 +7,7 @@ import { Screen } from 'config/routing';
 
 import { StyleSheet } from 'react-native';
 import { H1, View, H3, Card, CardItem, Text, Button, Body } from 'native-base';
+import Content from '../Content/Content';
 
 export interface SuggestionsProps {
   qualifications: Qualification[];
@@ -16,7 +17,7 @@ const Suggestions = ({ qualifications }: SuggestionsProps) => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
+    <Content>
       <H1
         style={[
           styles.textCenter,
@@ -75,7 +76,7 @@ const Suggestions = ({ qualifications }: SuggestionsProps) => {
           })}
         </View>
       )}
-    </View>
+    </Content>
   );
 };
 

@@ -42,6 +42,7 @@ import listItemTheme from './ListItem';
 import formTheme from './Form';
 import separatorTheme from './Separator';
 import pickerTheme from './Picker';
+import scrollableTabTheme from './ScrollableTab';
 import variable from '../variables/platform';
 
 export const createTheme = (variables /* : * */ = variable) => {
@@ -211,6 +212,9 @@ export const createTheme = (variables /* : * */ = variable) => {
     },
     'NativeBase.Thumbnail': {
       ...thumbnailTheme(),
+    },
+    'NativeBase.ScrollableTab': {
+      ...scrollableTabTheme(),
     },
   };
 

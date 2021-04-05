@@ -1,13 +1,14 @@
 import React from 'react';
 
 import { StyleSheet } from 'react-native';
-import { H1, View } from 'native-base';
+import { H1 } from 'native-base';
+import Content from '../Content/Content';
 
 const QualificationNotFound = () => {
   return (
-    <View style={styles.wrapper}>
+    <Content>
       <H1 style={styles.heading}>Kwalifikacja nie została znaleziona</H1>
-    </View>
+    </Content>
   );
 };
 

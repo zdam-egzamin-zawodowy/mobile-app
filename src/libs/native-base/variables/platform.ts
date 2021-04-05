@@ -193,7 +193,9 @@ export default {
   activeTab: platform === OS.IOS ? '#007aff' : '#fff',
   sTabBarActiveTextColor: '#007aff',
   tabBarActiveTextColor: platform === OS.IOS ? '#007aff' : '#fff',
-  tabActiveBgColor: platform === OS.IOS ? '#cde1f9' : '#3F51B5',
+  get tabActiveBgColor() {
+    return platform === OS.IOS ? '#cde1f9' : this.brandPrimary;
+  },
 
   // Header
   toolbarBtnColor: platform === OS.IOS ? '#007aff' : '#fff',
@@ -206,7 +208,9 @@ export default {
   searchBarHeight: platform === OS.IOS ? 30 : 40,
   searchBarInputHeight: platform === OS.IOS ? 30 : 50,
   toolbarBtnTextColor: platform === OS.IOS ? '#007aff' : '#fff',
-  toolbarDefaultBorder: platform === OS.IOS ? '#a7a6ab' : '#3F51B5',
+  get toolbarDefaultBorder() {
+    return platform === OS.IOS ? '#a7a6ab' : this.brandPrimary;
+  },
   iosStatusbar: platform === OS.IOS ? 'dark-content' : 'light-content',
   get statusBarColor() {
     return color(this.toolbarDefaultBg).darken(0.2).hex();
@@ -239,7 +243,9 @@ export default {
   lineHeightH2: 27,
   lineHeightH3: 25,
   lineHeight: platform === OS.IOS ? 20 : 24,
-  listItemSelected: platform === OS.IOS ? '#007aff' : '#3F51B5',
+  get listItemSelected() {
+    return platform === OS.IOS ? '#007aff' : this.brandPrimary;
+  },
 
   // List
   listBg: 'transparent',
@@ -256,7 +262,9 @@ export default {
 
   // Radio Button
   radioBtnSize: platform === OS.IOS ? 25 : 23,
-  radioSelectedColorAndroid: '#3F51B5',
+  get radioSelectedColorAndroid() {
+    return this.brandPrimary;
+  },
   radioBtnLineHeight: platform === OS.IOS ? 29 : 24,
   get radioColor() {
     return this.brandPrimary;
@@ -268,9 +276,13 @@ export default {
   },
   segmentActiveBackgroundColor: platform === OS.IOS ? '#007aff' : '#fff',
   segmentTextColor: platform === OS.IOS ? '#007aff' : '#fff',
-  segmentActiveTextColor: platform === OS.IOS ? '#fff' : '#3F51B5',
+  get segmentActiveTextColor() {
+    return platform === OS.IOS ? '#fff' : this.brandPrimary;
+  },
   segmentBorderColor: platform === OS.IOS ? '#007aff' : '#fff',
-  segmentBorderColorMain: platform === OS.IOS ? '#a7a6ab' : '#3F51B5',
+  get segmentBorderColorMain() {
+    return platform === OS.IOS ? '#a7a6ab' : this.brandPrimary;
+  },
 
   // Spinner
   defaultSpinnerColor: '#45D56E',
@@ -278,7 +290,9 @@ export default {
 
   // Tab
   tabBarDisabledTextColor: '#BDBDBD',
-  tabDefaultBg: platform === OS.IOS ? '#F8F8F8' : '#3F51B5',
+  get tabDefaultBg() {
+    return platform === OS.IOS ? '#F8F8F8' : this.brandPrimary;
+  },
   topTabBarTextColor: platform === OS.IOS ? '#6b6b6b' : '#b3c7f9',
   topTabBarActiveTextColor: platform === OS.IOS ? '#007aff' : '#fff',
   topTabBarBorderColor: platform === OS.IOS ? '#a7a6ab' : '#fff',

@@ -46,7 +46,6 @@ const HomeScreen = () => {
       .filter(profession => profession.qualifications.length > 0);
   }, [search, professions]);
 
-  console.log(networkStatus);
   return (
     <Container>
       <Header onSearch={setSearch} />

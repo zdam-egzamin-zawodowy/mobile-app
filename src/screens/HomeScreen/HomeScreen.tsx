@@ -1,11 +1,14 @@
 import React, { useMemo, useState } from 'react';
 import { sortBy } from 'lodash';
 import { NetworkStatus, useQuery } from '@apollo/client';
+import { useUpdateEffect } from 'react-use';
 import { useVariables } from 'libs/native-base';
 import { useSavedQualifications } from 'libs/savedqualifications';
 import { Query, QueryProfessionsArgs } from 'libs/graphql';
+import { EMAIL } from 'config/app';
 import { QUERY_PROFESSIONS } from './queries';
 
+import { Alert, Linking } from 'react-native';
 import { Container, Content, Spinner } from 'native-base';
 import Professions from './components/Professions/Professions';
 import Header from './components/Header/Header';
@@ -16,7 +19,7 @@ const HomeScreen = () => {
   const [mode, setMode] = useState(Mode.All);
   const variables = useVariables();
   const { isSaved } = useSavedQualifications();
-  const { loading, data, refetch, networkStatus } = useQuery<
+  const { loading, data, refetch, networkStatus, error } = useQuery<
     Pick<Query, 'professions'>,
     QueryProfessionsArgs
   >(QUERY_PROFESSIONS, {
@@ -49,6 +52,21 @@ const HomeScreen = () => {
       }))
       .filter(profession => profession.qualifications.length > 0);
   }, [search, professions, mode, isSaved]);
+  useUpdateEffect(() => {
+    if (error && error.networkError) {
+      Alert.alert(
+        'Problem z połączeniem',
+        'Prosimy o sprawdzenie połączenia z internetem / spróbowanie ponownie później. Przepraszamy za utrudnienia.',
+        [
+          {
+            text: 'Zgłoś problem',
+            onPress: () => Linking.openURL(`mailto:${EMAIL}`),
+          },
+          { text: 'OK' },
+        ],
+      );
+    }
+  }, [error]);
 
   return (
     <Container>

@@ -4,4 +4,6 @@ export const AUTHOR = {
   CONTACT: 'https://dwysokinski.me/#contact',
 };
 
+export const EMAIL = 'kontakt@zdamegzaminzawodowy.pl';
+
 export const QUESTIONS = [1, 40];

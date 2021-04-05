@@ -1,7 +1,11 @@
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
+  { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
+  { [SubKey in K]: Maybe<T[SubKey]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: number;
@@ -13,14 +17,11 @@ export type Scalars = {
   Upload: any;
 };
 
-
-
-
 export enum Answer {
   A = 'a',
   B = 'b',
   C = 'c',
-  D = 'd'
+  D = 'd',
 }
 
 export type Mutation = {
@@ -40,76 +41,62 @@ export type Mutation = {
   signIn?: Maybe<UserWithToken>;
 };
 
-
 export type MutationCreateProfessionArgs = {
   input: ProfessionInput;
 };
-
 
 export type MutationUpdateProfessionArgs = {
   id: Scalars['ID'];
   input: ProfessionInput;
 };
 
-
 export type MutationDeleteProfessionsArgs = {
   ids: Array<Scalars['ID']>;
 };
 
-
 export type MutationCreateQualificationArgs = {
   input: QualificationInput;
 };
-
 
 export type MutationUpdateQualificationArgs = {
   id: Scalars['ID'];
   input: QualificationInput;
 };
 
-
 export type MutationDeleteQualificationsArgs = {
   ids: Array<Scalars['ID']>;
 };
 
-
 export type MutationCreateQuestionArgs = {
   input: QuestionInput;
 };
-
 
 export type MutationUpdateQuestionArgs = {
   id: Scalars['ID'];
   input: QuestionInput;
 };
 
-
 export type MutationDeleteQuestionsArgs = {
   ids: Array<Scalars['ID']>;
 };
 
-
 export type MutationCreateUserArgs = {
   input: UserInput;
 };
-
 
 export type MutationUpdateUserArgs = {
   id: Scalars['ID'];
   input: UserInput;
 };
 
-
 export type MutationUpdateManyUsersArgs = {
   ids: Array<Scalars['ID']>;
   input: UpdateManyUsersInput;
 };
 
-
 export type MutationDeleteUsersArgs = {
   ids: Array<Scalars['ID']>;
 };
-
 
 export type MutationSignInArgs = {
   email: Scalars['String'];
@@ -225,7 +212,6 @@ export type Query = {
   me?: Maybe<User>;
 };
 
-
 export type QueryProfessionsArgs = {
   filter?: Maybe<ProfessionFilter>;
   limit?: Maybe<Scalars['Int']>;
@@ -233,12 +219,10 @@ export type QueryProfessionsArgs = {
   sort?: Maybe<Array<Scalars['String']>>;
 };
 
-
 export type QueryProfessionArgs = {
-  id?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['ID']>;
   slug?: Maybe<Scalars['String']>;
 };
-
 
 export type QueryQualificationsArgs = {
   filter?: Maybe<QualificationFilter>;
@@ -247,7 +231,6 @@ export type QueryQualificationsArgs = {
   sort?: Maybe<Array<Scalars['String']>>;
 };
 
-
 export type QuerySimilarQualificationsArgs = {
   qualificationID: Scalars['ID'];
   limit?: Maybe<Scalars['Int']>;
@@ -255,12 +238,10 @@ export type QuerySimilarQualificationsArgs = {
   sort?: Maybe<Array<Scalars['String']>>;
 };
 
-
 export type QueryQualificationArgs = {
-  id?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['ID']>;
   slug?: Maybe<Scalars['String']>;
 };
-
 
 export type QueryQuestionsArgs = {
   filter?: Maybe<QuestionFilter>;
@@ -269,12 +250,10 @@ export type QueryQuestionsArgs = {
   sort?: Maybe<Array<Scalars['String']>>;
 };
 
-
 export type QueryGenerateTestArgs = {
   qualificationIDs: Array<Scalars['ID']>;
   limit?: Maybe<Scalars['Int']>;
 };
-
 
 export type QueryUsersArgs = {
   filter?: Maybe<UserFilter>;
@@ -283,9 +262,8 @@ export type QueryUsersArgs = {
   sort?: Maybe<Array<Scalars['String']>>;
 };
 
-
 export type QueryUserArgs = {
-  id: Scalars['Int'];
+  id: Scalars['ID'];
 };
 
 export type Question = {
@@ -353,15 +331,13 @@ export type QuestionList = {
 
 export enum Role {
   Admin = 'admin',
-  User = 'user'
+  User = 'user',
 }
-
 
 export type UpdateManyUsersInput = {
   role?: Maybe<Role>;
   activated?: Maybe<Scalars['Boolean']>;
 };
-
 
 export type User = {
   id: Scalars['ID'];

@@ -1,8 +1,6 @@
-export const AUTHOR = {
-  FULL_NAME: 'Dawid Wysokiński',
-  EMAIL: 'contact@dwysokinski.me',
-  CONTACT: 'https://dwysokinski.me/#contact',
-};
+export const WEBSITE = __DEV__
+  ? 'http://localhost:3000'
+  : 'https://zdamegzaminzawodowy.pl';
 
 export const EMAIL = 'kontakt@zdamegzaminzawodowy.pl';
 

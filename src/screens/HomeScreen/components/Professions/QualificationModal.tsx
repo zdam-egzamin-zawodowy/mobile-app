@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { polishPlurals } from 'polish-plurals';
 import { useSavedQualifications } from 'libs/savedqualifications';
 import { Maybe, Qualification } from 'libs/graphql';
@@ -10,13 +11,13 @@ import {
   Button,
   Card,
   CardItem,
-  Left,
   Text,
   View,
   Icon,
   Right,
 } from 'native-base';
 import Modal, { ModalProps } from 'common/Modal/Modal';
+import { Screen } from '../../../../config/routing';
 
 export interface QualificationModalProps
   extends Pick<ModalProps, 'visible' | 'onPressBackdrop'> {
@@ -28,8 +29,8 @@ const QualificationModal = ({
   onPressBackdrop,
   visible,
 }: QualificationModalProps) => {
+  const navigation = useNavigation();
   const { savedQualifications, saveQualification } = useSavedQualifications();
-
   const isSaved = useMemo(() => {
     if (!qualification) {
       return false;
@@ -86,6 +87,12 @@ const QualificationModal = ({
                       styles.button,
                       index === QUESTIONS.length - 1 ? {} : styles.marginRight,
                     ]}
+                    onPress={() => {
+                      navigation.navigate(Screen.Test, {
+                        qualificationID: qualification?.id ?? 0,
+                        limit: question,
+                      });
+                    }}
                     key={question}
                   >
                     <Text style={styles.buttonText}>

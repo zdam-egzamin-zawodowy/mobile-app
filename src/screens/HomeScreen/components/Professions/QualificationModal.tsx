@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { polishPlurals } from 'polish-plurals';
+import { useSavedQualifications } from 'libs/savedqualifications';
 import { Maybe, Qualification } from 'libs/graphql';
 import { QUESTIONS } from 'config/app';
 
@@ -15,7 +17,6 @@ import {
   Right,
 } from 'native-base';
 import Modal, { ModalProps } from 'common/Modal/Modal';
-import { polishPlurals } from 'polish-plurals';
 
 export interface QualificationModalProps
   extends Pick<ModalProps, 'visible' | 'onPressBackdrop'> {
@@ -27,6 +28,15 @@ const QualificationModal = ({
   onPressBackdrop,
   visible,
 }: QualificationModalProps) => {
+  const { savedQualifications, saveQualification } = useSavedQualifications();
+
+  const isSaved = useMemo(() => {
+    if (!qualification) {
+      return false;
+    }
+    return savedQualifications.some(id => id === qualification.id);
+  }, [savedQualifications, qualification]);
+
   return (
     <Modal
       animationType="fade"
@@ -43,10 +53,18 @@ const QualificationModal = ({
               </Text>
             </Body>
             <Right>
-              <Button small transparent>
+              <Button
+                small
+                transparent
+                onPress={
+                  qualification
+                    ? () => saveQualification(qualification.id, !isSaved)
+                    : undefined
+                }
+              >
                 <Icon
                   type="Entypo"
-                  name={true ? 'star' : 'star-outlined'}
+                  name={isSaved ? 'star' : 'star-outlined'}
                   style={{ fontSize: 30 }}
                 />
               </Button>

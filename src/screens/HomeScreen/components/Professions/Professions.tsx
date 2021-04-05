@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FlatListProps, RefreshControl } from 'react-native';
-import { Profession } from 'libs/graphql';
+import { Maybe, Profession, Qualification } from 'libs/graphql';
 
-import { List } from 'native-base';
+import { List, View } from 'native-base';
 import Item from './Item';
+import QualificationModal from './QualificationModal';
 
 export interface ProfessionsProps
   extends Pick<FlatListProps<Profession>, 'refreshing' | 'onRefresh'> {
@@ -15,20 +16,40 @@ const Professions = ({
   refreshing,
   onRefresh,
 }: ProfessionsProps) => {
+  const [selectedQualification, setSelectedQualification] = useState<
+    Maybe<Qualification>
+  >(null);
+  const [showModal, setShowModal] = useState(false);
+
   return (
-    <List
-      dataArray={professions}
-      renderItem={({ item }: { item: Profession }) => {
-        return <Item profession={item} />;
-      }}
-      keyExtractor={item => item.id}
-      refreshControl={
-        <RefreshControl
-          refreshing={refreshing ?? false}
-          onRefresh={onRefresh ?? (() => {})}
-        />
-      }
-    />
+    <View style={{ flex: 1 }}>
+      <List
+        dataArray={professions}
+        renderItem={({ item }: { item: Profession }) => {
+          return (
+            <Item
+              profession={item}
+              onPress={qualification => {
+                setSelectedQualification(qualification);
+                setShowModal(true);
+              }}
+            />
+          );
+        }}
+        keyExtractor={item => item.id}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing ?? false}
+            onRefresh={onRefresh ?? (() => {})}
+          />
+        }
+      />
+      <QualificationModal
+        onPressBackdrop={() => setShowModal(false)}
+        qualification={selectedQualification}
+        visible={showModal}
+      />
+    </View>
   );
 };
 

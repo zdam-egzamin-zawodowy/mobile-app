@@ -10,6 +10,7 @@ import {
   Header as NBHeader,
   Right,
 } from 'native-base';
+import Menu from 'common/Menu/Menu';
 
 export interface HeaderProps {
   title: string;
@@ -28,7 +29,9 @@ const Header = ({ title }: HeaderProps) => {
       <Body>
         <Title>{title}</Title>
       </Body>
-      <Right />
+      <Right>
+        <Menu />
+      </Right>
     </NBHeader>
   );
 };

@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDebounce } from 'react-use';
 
-import { Keyboard, TextInput } from 'react-native';
-import { Icon, Input, Item, Header as NBHeader } from 'native-base';
+import { Keyboard, StyleSheet, TextInput } from 'react-native';
+import { Icon, Input, Item, Header as NBHeader, View } from 'native-base';
+import Menu from 'common/Menu/Menu';
 
 export interface HeaderProps {
   onSearch?: (search: string) => void;
@@ -33,7 +34,7 @@ const Header = ({ onSearch }: HeaderProps) => {
   }, []);
 
   return (
-    <NBHeader searchBar rounded hasSegment>
+    <NBHeader searchBar rounded hasSegment style={styles.header}>
       <Item>
         <Icon name="ios-search" />
         <Input
@@ -43,9 +44,20 @@ const Header = ({ onSearch }: HeaderProps) => {
           ref={inputRef}
         />
       </Item>
-      <Icon name="ios-search" />
+      <View>
+        <Menu style={styles.menu} />
+      </View>
     </NBHeader>
   );
 };
+
+const styles = StyleSheet.create({
+  header: {
+    alignItems: 'center',
+  },
+  menu: {
+    marginLeft: 10,
+  },
+});
 
 export default Header;

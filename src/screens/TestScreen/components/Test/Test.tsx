@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Question as QuestionT, Answer } from 'libs/graphql';
+import { useVariables } from 'libs/native-base';
 
 import { ScrollableTab, Tab, Tabs } from 'native-base';
 import Question from './Question';
@@ -16,6 +17,7 @@ const Test = ({ questions }: TestProps) => {
   const [selectedAnswers, setSelectedAnswers] = useState<Answer[]>(
     new Array(questions.length).fill(''),
   );
+  const variables = useVariables();
 
   const createSelectAnswerHandler = (index: number) => (answer: Answer) => {
     if (reviewMode) {
@@ -36,8 +38,20 @@ const Test = ({ questions }: TestProps) => {
       }}
     >
       {questions.map((question, index) => {
+        const color =
+          selectedAnswers[index] === question.correctAnswer
+            ? variables.buttonSuccessBg
+            : variables.buttonDangerBg;
+        const textStyle = {
+          color,
+        };
         return (
-          <Tab key={question.id} heading={`Pytanie ${index + 1}`}>
+          <Tab
+            key={question.id}
+            heading={`Pytanie ${index + 1}`}
+            textStyle={reviewMode ? textStyle : []}
+            activeTextStyle={reviewMode ? textStyle : []}
+          >
             <Question
               question={question}
               reviewMode={reviewMode}

@@ -3,6 +3,7 @@ import { Question as QuestionT, Answer } from 'libs/graphql';
 
 import { ScrollableTab, Tab, Tabs } from 'native-base';
 import Question from './Question';
+import SummaryTab from './SummaryTab';
 
 export interface TestProps {
   questions: QuestionT[];
@@ -46,6 +47,14 @@ const Test = ({ questions }: TestProps) => {
           </Tab>
         );
       })}
+      <Tab heading="Koniec">
+        <SummaryTab
+          reviewMode={reviewMode}
+          answers={selectedAnswers}
+          questions={questions}
+          finishTest={() => setReviewMode(true)}
+        />
+      </Tab>
     </Tabs>
   );
 };

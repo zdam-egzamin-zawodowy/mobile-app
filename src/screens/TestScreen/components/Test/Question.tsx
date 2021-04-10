@@ -1,5 +1,6 @@
 import React from 'react';
 import { Question as QuestionT, Answer } from 'libs/graphql';
+import { useVariables } from 'libs/native-base';
 
 import { StyleSheet } from 'react-native';
 import { Button, H1, Text } from 'native-base';
@@ -21,6 +22,8 @@ const Question = ({
   reviewMode,
   selectAnswer,
 }: QuestionProps) => {
+  const variables = useVariables();
+
   return (
     <Content>
       {question.from && <Text note>{question.from}</Text>}
@@ -47,6 +50,7 @@ const Question = ({
             style={[
               index + 1 === ANSWERS.length ? undefined : styles.mb,
               styles.button,
+              { minHeight: variables.buttonHeightNormal },
             ]}
             success={reviewMode && isCorrect}
             danger={reviewMode && isSelected && !isCorrect}

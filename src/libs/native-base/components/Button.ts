@@ -367,7 +367,7 @@ export default (variables /* : * */ = variable) => {
     borderRadius: variables.borderRadiusBase,
     borderColor: variables.buttonPrimaryBg,
     borderWidth: null,
-    height: 45,
+    height: variables.buttonHeightNormal,
     flexDirection: 'row',
     elevation: 2,
     alignItems: 'center',

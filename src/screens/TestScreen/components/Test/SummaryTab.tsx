@@ -1,10 +1,11 @@
 import React, { useMemo } from 'react';
+import { polishPlurals } from 'polish-plurals';
 import { Answer, Question } from 'libs/graphql';
 
+import { StyleSheet } from 'react-native';
 import { Button, H1, H3, Text, View } from 'native-base';
 import Content from '../Content/Content';
-import { polishPlurals } from 'polish-plurals';
-import { StyleSheet } from 'react-native';
+import Alert from './Alert';
 
 export interface SummaryTabProps {
   reviewMode: boolean;
@@ -25,12 +26,16 @@ const SummaryTab = ({
     ).length;
   }, [answers, questions]);
   const total = questions.length;
-  const wrongAnswers = total - correctAnswers;
 
   return (
     <Content>
       {reviewMode ? (
         <View>
+          <Alert
+            title="Pamiętaj!"
+            description="Po zakończeniu testu możesz wrócić do pytań i sprawdzić gdzie zrobiłeś błąd."
+            style={styles.mb}
+          />
           <H1 style={[styles.textAlignCenter]}>
             Twój wynik: {Math.ceil((correctAnswers / total) * 100)}%
           </H1>

@@ -57,6 +57,7 @@ export default {
   buttonDefaultFlex: 1,
   buttonDefaultBorderRadius: 2,
   buttonDefaultBorderWidth: 1,
+  buttonHeightNormal: 45,
   get buttonPrimaryBg() {
     return this.brandPrimary;
   },

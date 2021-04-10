@@ -54,6 +54,7 @@ export type Variables = {
   buttonDefaultFlex: number;
   buttonDefaultBorderRadius: number;
   buttonDefaultBorderWidth: number;
+  buttonHeightNormal: number;
   buttonPrimaryBg: string;
   buttonPrimaryColor: string;
   buttonInfoBg: string;

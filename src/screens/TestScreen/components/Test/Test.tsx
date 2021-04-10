@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Question as QuestionT, Answer } from 'libs/graphql';
 
 import { ScrollableTab, Tab, Tabs } from 'native-base';
@@ -7,11 +7,10 @@ import SummaryTab from './SummaryTab';
 
 export interface TestProps {
   questions: QuestionT[];
+  onReset: () => void;
 }
 
-const Test = ({ questions }: TestProps) => {
-  const startedAtRef = useRef(new Date());
-  const endedAtRef = useRef(new Date());
+const Test = ({ questions, onReset }: TestProps) => {
   const [reviewMode, setReviewMode] = useState(false);
   const [selectedAnswers, setSelectedAnswers] = useState<Answer[]>(
     new Array(questions.length).fill(''),
@@ -64,6 +63,7 @@ const Test = ({ questions }: TestProps) => {
           reviewMode={reviewMode}
           answers={selectedAnswers}
           questions={questions}
+          resetTest={onReset}
           finishTest={() => setReviewMode(true)}
         />
       </Tab>

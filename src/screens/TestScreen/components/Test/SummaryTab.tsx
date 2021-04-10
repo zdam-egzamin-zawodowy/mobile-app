@@ -12,6 +12,7 @@ export interface SummaryTabProps {
   answers: Answer[];
   questions: Question[];
   finishTest: () => void;
+  resetTest: () => void;
 }
 
 const SummaryTab = ({
@@ -19,6 +20,7 @@ const SummaryTab = ({
   answers,
   questions,
   finishTest,
+  resetTest,
 }: SummaryTabProps) => {
   const correctAnswers = useMemo(() => {
     return answers.filter(
@@ -44,7 +46,7 @@ const SummaryTab = ({
             {polishPlurals('pytanie', 'pytania', 'pytań', correctAnswers)} z{' '}
             {total}.
           </H3>
-          <Button full>
+          <Button full onPress={resetTest}>
             <Text>Spróbuj ponownie</Text>
           </Button>
         </View>

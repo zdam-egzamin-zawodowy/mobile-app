@@ -26,7 +26,7 @@ type QueryGenerateTestSimilarQualificationsQualificationArgs = {
 
 const TestScreen = ({ route }: TestScreenProps) => {
   const variables = useVariables();
-  const { data, loading, networkStatus } = useQuery<
+  const { data, loading, networkStatus, refetch } = useQuery<
     Pick<Query, 'qualification' | 'generateTest' | 'similarQualifications'>,
     QueryGenerateTestSimilarQualificationsQualificationArgs
   >(QUERY_GENERATE_TEST_SIMILAR_QUALIFICATIONS_QUALIFICATION, {
@@ -55,7 +55,10 @@ const TestScreen = ({ route }: TestScreenProps) => {
         </Content>
       ) : data?.qualification ? (
         data?.generateTest?.length ? (
-          <Test questions={data.generateTest} />
+          <Test
+            questions={data.generateTest}
+            onReset={() => refetch(undefined)}
+          />
         ) : (
           <Suggestions
             qualifications={data?.similarQualifications.items ?? []}

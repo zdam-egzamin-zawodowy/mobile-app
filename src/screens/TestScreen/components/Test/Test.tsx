@@ -1,13 +1,31 @@
-import React, { useRef } from 'react';
-import { Question } from 'libs/graphql';
-import { ScrollableTab, Tab, Tabs, Text } from 'native-base';
+import React, { useRef, useState } from 'react';
+import { Question as QuestionT, Answer } from 'libs/graphql';
+
+import { ScrollableTab, Tab, Tabs } from 'native-base';
+import Question from './Question';
 
 export interface TestProps {
-  questions: Question[];
+  questions: QuestionT[];
 }
 
 const Test = ({ questions }: TestProps) => {
-  const startedAt = useRef(new Date()).current;
+  const startedAtRef = useRef(new Date());
+  const endedAtRef = useRef(new Date());
+  const [reviewMode, setReviewMode] = useState(false);
+  const [selectedAnswers, setSelectedAnswers] = useState<Answer[]>(
+    new Array(questions.length).fill(''),
+  );
+
+  const createSelectAnswerHandler = (index: number) => (answer: Answer) => {
+    if (reviewMode) {
+      return;
+    }
+    setSelectedAnswers(answers =>
+      answers.map((otherAnswer, index2) =>
+        index === index2 ? answer : otherAnswer,
+      ),
+    );
+  };
 
   return (
     <Tabs
@@ -19,7 +37,12 @@ const Test = ({ questions }: TestProps) => {
       {questions.map((question, index) => {
         return (
           <Tab key={question.id} heading={`Pytanie ${index + 1}`}>
-            <Text>Pytanie</Text>
+            <Question
+              question={question}
+              reviewMode={reviewMode}
+              selectedAnswer={selectedAnswers[index]}
+              selectAnswer={createSelectAnswerHandler(index)}
+            />
           </Tab>
         );
       })}

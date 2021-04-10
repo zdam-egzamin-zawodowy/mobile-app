@@ -13,9 +13,6 @@ const QualificationNotFound = () => {
 };
 
 const styles = StyleSheet.create({
-  wrapper: {
-    flexGrow: 1,
-  },
   heading: {
     textAlignVertical: 'center',
     textAlign: 'center',

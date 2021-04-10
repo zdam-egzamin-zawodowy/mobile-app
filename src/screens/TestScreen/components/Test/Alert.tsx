@@ -1,17 +1,19 @@
 import React from 'react';
 import { useVariables } from 'libs/native-base';
 
-import { Icon, View, H3, Text, NativeBase } from 'native-base';
 import { StyleSheet } from 'react-native';
+import { Icon, View, H3, Text, NativeBase } from 'native-base';
 
 export enum AlertVariant {
   Info = 'info',
+  Warning = 'warning',
 }
 
 export interface AlertProps extends Pick<NativeBase.View, 'style'> {
   variant?: AlertVariant;
   title: React.ReactNode;
   description?: React.ReactNode;
+  actions?: React.ReactNode;
 }
 
 const Alert = ({
@@ -19,6 +21,7 @@ const Alert = ({
   title,
   description,
   style,
+  actions,
 }: AlertProps) => {
   const variables = useVariables();
 
@@ -29,6 +32,8 @@ const Alert = ({
     switch (variant) {
       case AlertVariant.Info:
         return <Icon type="Feather" name="info" {...defaultProps} />;
+      case AlertVariant.Warning:
+        return <Icon type="AntDesign" name="warning" {...defaultProps} />;
     }
   };
 
@@ -36,6 +41,8 @@ const Alert = ({
     switch (variant) {
       case AlertVariant.Info:
         return variables.brandInfo;
+      case AlertVariant.Warning:
+        return variables.brandWarning;
     }
   };
 
@@ -47,13 +54,14 @@ const Alert = ({
       <View>{renderIcon()}</View>
       <View style={styles.textContainer}>
         <H3 style={[{ color: variables.inverseTextColor }]}>{title}</H3>
-        {description ? (
+        {description && (
           <Text
             style={[{ color: variables.inverseTextColor }, styles.description]}
           >
             {description}
           </Text>
-        ) : null}
+        )}
+        {actions && <View style={styles.actionsContainer}>{actions}</View>}
       </View>
     </View>
   );
@@ -75,6 +83,9 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flexShrink: 1,
+  },
+  actionsContainer: {
+    marginTop: 5,
   },
 });
 

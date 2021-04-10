@@ -17,6 +17,7 @@ export const QUERY_GENERATE_TEST_SIMILAR_QUALIFICATIONS_QUALIFICATION = gql`
       id
       from
       content
+      explanation
       image
       answerA
       answerAImage

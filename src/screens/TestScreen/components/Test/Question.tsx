@@ -1,11 +1,13 @@
-import React from 'react';
-import { Question as QuestionT, Answer } from 'libs/graphql';
+import React, { Fragment } from 'react';
+import { Answer, Question as QuestionT } from 'libs/graphql';
 import { useVariables } from 'libs/native-base';
+import { EMAIL } from 'config/app';
 
-import { StyleSheet } from 'react-native';
+import { Linking, StyleSheet } from 'react-native';
 import { Button, H1, Text } from 'native-base';
 import Content from '../Content/Content';
 import Image from './Image';
+import Alert, { AlertVariant } from './Alert';
 
 export interface QuestionProps {
   question: QuestionT;
@@ -26,6 +28,21 @@ const Question = ({
 
   return (
     <Content>
+      {reviewMode && (
+        <Alert
+          title="Znalazłeś błąd w pytaniu?"
+          style={styles.mb}
+          actions={
+            <Button
+              dark
+              danger
+              onPress={() => Linking.openURL(`mailto:${EMAIL}`)}
+            >
+              <Text>Zgłoś go.</Text>
+            </Button>
+          }
+        />
+      )}
       {question.from && <Text note>{question.from}</Text>}
       <H1 style={styles.mb}>{question.content}</H1>
       {question.image ? (
@@ -34,6 +51,24 @@ const Question = ({
           style={styles.mb}
         />
       ) : null}
+      {reviewMode && (
+        <Fragment>
+          {!selectedAnswer ? (
+            <Alert
+              title="W tym pytaniu nie wybrałeś żadnej odpowiedzi."
+              variant={AlertVariant.Warning}
+              style={styles.mb}
+            />
+          ) : null}
+          {question.explanation ? (
+            <Alert
+              title="Wyjaśnienie"
+              description={question.explanation}
+              style={styles.mb}
+            />
+          ) : null}
+        </Fragment>
+      )}
       {ANSWERS.map((answer, index) => {
         const upper = answer.toUpperCase();
         const image = question[

@@ -39,7 +39,7 @@ const SummaryTab = ({
             style={styles.mb}
           />
           <H1 style={[styles.textAlignCenter]}>
-            Twój wynik: {Math.ceil((correctAnswers / total) * 100)}%
+            Twój wynik: {(correctAnswers / total) * 100}%
           </H1>
           <H3 style={[styles.textAlignCenter, styles.mb]}>
             Poprawnie odpowiedziałeś na {correctAnswers}{' '}

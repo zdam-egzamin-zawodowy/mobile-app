@@ -1,8 +1,9 @@
 import React from 'react';
 import { EMAIL, WEBSITE } from 'config/app';
+import buildURL from 'utils/buildURL';
 
-import { ActionSheet, Icon, NativeBase } from 'native-base';
 import { Linking, StyleSheet } from 'react-native';
+import { ActionSheet, Icon, NativeBase } from 'native-base';
 
 export interface MenuProps
   extends Omit<NativeBase.Icon, 'onPress' | 'type' | 'name'> {}
@@ -25,7 +26,7 @@ const Menu = ({ style, ...rest }: MenuProps) => {
             Linking.openURL(WEBSITE);
             break;
           case CONTACT_OPT_INDEX:
-            Linking.openURL(`mailto:${EMAIL}`);
+            Linking.openURL(buildURL('mail', EMAIL));
             break;
         }
       },

@@ -7,6 +7,7 @@ import { useSavedQualifications } from 'libs/savedqualifications';
 import { Query, QueryProfessionsArgs } from 'libs/graphql';
 import { EMAIL } from 'config/app';
 import { QUERY_PROFESSIONS } from './queries';
+import buildURL from 'utils/buildURL';
 
 import { Alert, Linking } from 'react-native';
 import { Container, Content, Spinner } from 'native-base';
@@ -60,7 +61,7 @@ const HomeScreen = () => {
         [
           {
             text: 'Zgłoś problem',
-            onPress: () => Linking.openURL(`mailto:${EMAIL}`),
+            onPress: () => Linking.openURL(buildURL('mail', EMAIL)),
           },
           { text: 'OK' },
         ],

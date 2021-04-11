@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
 import analytics from '@react-native-firebase/analytics';
 import { AppStackParamList, Screen } from 'config/routing';
 
@@ -7,6 +6,7 @@ import {
   NavigationContainer,
   NavigationContainerRef,
 } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './HomeScreen/HomeScreen';
 import TestScreen from './TestScreen/TestScreen';
 
@@ -22,7 +22,7 @@ const AppScreens = () => (
   </AppStack.Navigator>
 );
 
-export default function Navigation() {
+const Navigation = () => {
   const routeNameRef = useRef<string>('');
   const navigationRef = useRef<NavigationContainerRef>(null);
 
@@ -59,4 +59,6 @@ export default function Navigation() {
       <AppScreens />
     </NavigationContainer>
   );
-}
+};
+
+export default Navigation;

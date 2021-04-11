@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { Answer, Question as QuestionT } from 'libs/graphql';
 import { useVariables } from 'libs/native-base';
 import { EMAIL } from 'config/app';
+import buildURL from 'utils/buildURL';
 
 import { Linking, StyleSheet } from 'react-native';
 import { Button, H1, Text } from 'native-base';
@@ -36,7 +37,7 @@ const Question = ({
             <Button
               dark
               danger
-              onPress={() => Linking.openURL(`mailto:${EMAIL}`)}
+              onPress={() => Linking.openURL(buildURL('mail', EMAIL))}
             >
               <Text>Zgłoś go.</Text>
             </Button>

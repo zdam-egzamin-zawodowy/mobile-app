@@ -131,10 +131,10 @@ export default {
 
   // Color
   brandPrimary: '#448AFF',
-  brandInfo: '#62B1F6',
+  brandInfo: '#2196f3',
   brandSuccess: '#4caf50',
   brandDanger: '#f44336',
-  brandWarning: '#f0ad4e',
+  brandWarning: '#ff9800',
   brandDark: '#000',
   brandLight: '#a9a9a9',
 

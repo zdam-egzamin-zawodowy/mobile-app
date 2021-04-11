@@ -33,6 +33,7 @@ const Test = ({ questions, onReset }: TestProps) => {
         props.tabStyle = Object.create(props.tabStyle);
         return <ScrollableTab {...props} />;
       }}
+      prerenderingSiblingsNumber={3}
     >
       {questions.map((question, index) => {
         const color =

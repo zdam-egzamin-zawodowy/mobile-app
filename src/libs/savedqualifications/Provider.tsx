@@ -1,7 +1,9 @@
 import React, { useCallback, useState } from 'react';
 import { useEffectOnce, useUpdateEffect } from 'react-use';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import analytics from '@react-native-firebase/analytics';
 import { context as Context } from './context';
+import { Event } from '../../config/analytics';
 
 export interface SavedQualificationsProviderProps {
   children?: React.ReactNode;
@@ -49,6 +51,13 @@ export const SavedQualificationsProvider = ({
         save
           ? ids => [...ids, id]
           : ids => ids.filter(otherID => otherID !== id),
+      );
+
+      analytics().logEvent(
+        save ? Event.SaveQualification : Event.UnSaveQualification,
+        {
+          id: id.toString(),
+        },
       );
     },
     [setSavedQualifications],

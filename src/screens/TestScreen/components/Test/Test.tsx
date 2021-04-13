@@ -40,6 +40,12 @@ const Test = ({ questions, onReset, qualification }: TestProps) => {
         index === index2 ? answer : otherAnswer,
       ),
     );
+    analytics().logEvent(Event.SelectAnswer, {
+      qualificationID: analyticsParams.qualificationID,
+      questionID: questions[index].id.toString(),
+      answer,
+      correct: questions[index].correctAnswer === answer ? '1' : '0',
+    });
   };
 
   const handleFinishTest = () => {

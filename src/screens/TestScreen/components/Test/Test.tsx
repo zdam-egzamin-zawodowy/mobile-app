@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
-import { Question as QuestionT, Answer } from 'libs/graphql';
+import React, { useEffect, useMemo, useState } from 'react';
+import analytics from '@react-native-firebase/analytics';
+import { Question as QuestionT, Answer, Qualification } from 'libs/graphql';
+import { Event } from 'config/analytics';
 
 import { ScrollableTab, Tab, Tabs } from 'native-base';
 import Question from './Question';
@@ -8,13 +10,26 @@ import SummaryTab from './SummaryTab';
 export interface TestProps {
   questions: QuestionT[];
   onReset: () => void;
+  qualification: Qualification;
 }
 
-const Test = ({ questions, onReset }: TestProps) => {
+const Test = ({ questions, onReset, qualification }: TestProps) => {
   const [reviewMode, setReviewMode] = useState(false);
   const [selectedAnswers, setSelectedAnswers] = useState<Answer[]>(
     new Array(questions.length).fill(''),
   );
+
+  const analyticsParams = useMemo(
+    () => ({
+      qualificationID: qualification.id.toString(),
+      questions: questions.length.toString(),
+    }),
+    [qualification, questions],
+  );
+
+  useEffect(() => {
+    analytics().logEvent(Event.StartTest, analyticsParams);
+  }, [analyticsParams]);
 
   const createSelectAnswerHandler = (index: number) => (answer: Answer) => {
     if (reviewMode) {
@@ -25,6 +40,11 @@ const Test = ({ questions, onReset }: TestProps) => {
         index === index2 ? answer : otherAnswer,
       ),
     );
+  };
+
+  const handleFinishTest = () => {
+    setReviewMode(true);
+    analytics().logEvent(Event.FinishTest, analyticsParams);
   };
 
   return (
@@ -65,7 +85,7 @@ const Test = ({ questions, onReset }: TestProps) => {
           answers={selectedAnswers}
           questions={questions}
           resetTest={onReset}
-          finishTest={() => setReviewMode(true)}
+          finishTest={handleFinishTest}
         />
       </Tab>
     </Tabs>

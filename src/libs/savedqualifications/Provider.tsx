@@ -3,7 +3,7 @@ import { useEffectOnce, useUpdateEffect } from 'react-use';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import analytics from '@react-native-firebase/analytics';
 import { context as Context } from './context';
-import { Event } from '../../config/analytics';
+import { Event } from 'config/analytics';
 
 export interface SavedQualificationsProviderProps {
   children?: React.ReactNode;

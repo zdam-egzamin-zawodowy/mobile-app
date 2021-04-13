@@ -56,6 +56,7 @@ const TestScreen = ({ route }: TestScreenProps) => {
       ) : data?.qualification ? (
         data?.generateTest?.length ? (
           <Test
+            qualification={data.qualification}
             questions={data.generateTest}
             onReset={() => refetch(undefined)}
           />

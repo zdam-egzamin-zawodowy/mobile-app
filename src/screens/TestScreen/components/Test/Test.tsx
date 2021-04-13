@@ -53,7 +53,7 @@ const Test = ({ questions, onReset, qualification }: TestProps) => {
         props.tabStyle = Object.create(props.tabStyle);
         return <ScrollableTab {...props} />;
       }}
-      prerenderingSiblingsNumber={3}
+      prerenderingSiblingsNumber={1}
     >
       {questions.map((question, index) => {
         const color =

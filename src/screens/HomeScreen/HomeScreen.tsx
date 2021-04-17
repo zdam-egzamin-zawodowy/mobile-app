@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from 'react';
-import { sortBy } from 'lodash';
 import { NetworkStatus, useQuery } from '@apollo/client';
 import { useUpdateEffect } from 'react-use';
 import { useVariables } from 'libs/native-base';
@@ -29,12 +28,9 @@ const HomeScreen = () => {
     notifyOnNetworkStatusChange: true,
   });
   const professions = useMemo(() => {
-    return (data?.professions.items ?? [])
-      .filter(profession => profession.qualifications.length > 0)
-      .map(profession => ({
-        ...profession,
-        qualifications: sortBy(profession.qualifications, ['formula', 'code']),
-      }));
+    return (data?.professions.items ?? []).filter(
+      profession => profession.qualifications.length > 0,
+    );
   }, [data]);
   const filteredProfessions = useMemo(() => {
     if (!search && mode === Mode.All) {

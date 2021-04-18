@@ -4,20 +4,20 @@ import { polishPlurals } from 'polish-plurals';
 import { useSavedQualifications } from 'libs/savedqualifications';
 import { Maybe, Qualification } from 'libs/graphql';
 import { QUESTIONS } from 'config/app';
+import { Screen } from 'config/routing';
 
-import { StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import {
   Body,
   Button,
   Card,
   CardItem,
-  Text,
-  View,
   Icon,
   Right,
+  Text,
+  View,
 } from 'native-base';
 import Modal, { ModalProps } from 'common/Modal/Modal';
-import { Screen } from '../../../../config/routing';
 
 export interface QualificationModalProps
   extends Pick<ModalProps, 'visible' | 'onPressBackdrop'> {
@@ -45,48 +45,38 @@ const QualificationModal = ({
       visible={visible}
       onPressBackdrop={onPressBackdrop}
     >
-      <View style={styles.modalContentContainer}>
-        <Card>
-          <CardItem header bordered style={styles.cardHeader}>
-            <Body style={{ flex: 3, alignSelf: 'center' }}>
-              <Text>
-                {qualification?.name} ({qualification?.code})
-              </Text>
-            </Body>
-            <Right>
-              <Button
-                small
-                transparent
-                onPress={
-                  qualification
-                    ? () => saveQualification(qualification.id, !isSaved)
-                    : undefined
-                }
-              >
-                <Icon
-                  type="Entypo"
-                  name={isSaved ? 'star' : 'star-outlined'}
-                  style={{ fontSize: 30 }}
-                />
-              </Button>
-            </Right>
-          </CardItem>
-          <CardItem>
-            <Body>
-              <View style={styles.buttonContainer}>
+      <View style={styles.container}>
+        <Card style={styles.card}>
+          <ScrollView pointerEvents={'box-none'}>
+            <CardItem header bordered style={styles.cardHeader}>
+              <Body style={{ flex: 3, alignSelf: 'center' }}>
+                <Text>
+                  {qualification?.name} ({qualification?.code})
+                </Text>
+              </Body>
+              <Right>
                 <Button
-                  full
-                  style={[styles.button, styles.marginRight]}
-                  onPress={onPressBackdrop}
+                  small
+                  transparent
+                  onPress={
+                    qualification
+                      ? () => saveQualification(qualification.id, !isSaved)
+                      : undefined
+                  }
                 >
-                  <Text>Anuluj</Text>
+                  <Icon
+                    type="Entypo"
+                    name={isSaved ? 'star' : 'star-outlined'}
+                    style={{ fontSize: 30 }}
+                  />
                 </Button>
-                {QUESTIONS.map((question, index) => (
+              </Right>
+            </CardItem>
+            <CardItem>
+              <Body>
+                {QUESTIONS.map(question => (
                   <Button
-                    style={[
-                      styles.button,
-                      index === QUESTIONS.length - 1 ? {} : styles.marginRight,
-                    ]}
+                    style={[styles.marginBottom]}
                     onPress={() => {
                       if (onPressBackdrop) {
                         onPressBackdrop();
@@ -97,6 +87,7 @@ const QualificationModal = ({
                       });
                     }}
                     key={question}
+                    full
                   >
                     <Text style={styles.buttonText}>
                       Test {question}{' '}
@@ -104,9 +95,12 @@ const QualificationModal = ({
                     </Text>
                   </Button>
                 ))}
-              </View>
-            </Body>
-          </CardItem>
+                <Button full onPress={onPressBackdrop}>
+                  <Text>Anuluj</Text>
+                </Button>
+              </Body>
+            </CardItem>
+          </ScrollView>
         </Card>
       </View>
     </Modal>
@@ -114,28 +108,23 @@ const QualificationModal = ({
 };
 
 const styles = StyleSheet.create({
-  modalContentContainer: {
+  container: {
+    display: 'flex',
     justifyContent: 'center',
+    alignItems: 'center',
     flexGrow: 1,
     paddingHorizontal: 15,
-    maxWidth: 420,
   },
-  buttonContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignSelf: 'flex-end',
+  card: {
+    width: '100%',
+    maxWidth: 420,
   },
   buttonText: {
     textAlign: 'center',
     textAlignVertical: 'center',
-    flex: 1,
   },
-  button: {
-    height: 'auto',
-    flex: 1,
-  },
-  marginRight: {
-    marginRight: 6,
+  marginBottom: {
+    marginBottom: 6,
   },
   cardHeader: {
     display: 'flex',

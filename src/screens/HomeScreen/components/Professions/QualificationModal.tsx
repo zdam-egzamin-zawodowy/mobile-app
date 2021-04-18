@@ -128,10 +128,11 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: 'center',
     textAlignVertical: 'center',
+    flex: 1,
   },
   button: {
-    flex: 1,
     height: 'auto',
+    flex: 1,
   },
   marginRight: {
     marginRight: 6,

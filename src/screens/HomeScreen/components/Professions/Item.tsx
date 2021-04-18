@@ -37,4 +37,4 @@ const Item = ({ profession, onPress }: ItemProps) => {
   );
 };
 
-export default Item;
+export default React.memo(Item);

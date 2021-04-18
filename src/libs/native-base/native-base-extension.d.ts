@@ -6,6 +6,8 @@ declare module 'native-base' {
   namespace NativeBase {
     interface List {
       ListEmptyComponent?: FlatListProps<any>['ListEmptyComponent'];
+      initialNumToRender?: number;
+      maxToRenderPerBatch?: number;
     }
   }
 }

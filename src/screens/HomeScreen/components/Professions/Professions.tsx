@@ -51,12 +51,14 @@ const Professions = ({
         renderItem={renderItem}
         ListEmptyComponent={<ListEmpty />}
         keyExtractor={keyExtractor}
+        maxToRenderPerBatch={5}
         refreshControl={
           <RefreshControl
             refreshing={refreshing ?? false}
             onRefresh={onRefresh ?? (() => {})}
           />
         }
+        initialNumToRender={5}
       />
       <QualificationModal
         onPressBackdrop={() => setShowModal(false)}

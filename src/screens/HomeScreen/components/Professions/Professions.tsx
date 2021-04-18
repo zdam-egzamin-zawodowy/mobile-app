@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useUpdateEffect } from 'react-use';
 import { Maybe, Profession, Qualification } from 'libs/graphql';
 
@@ -28,6 +28,14 @@ const Professions = ({
     listRef.current?._root?.scrollToOffset({ offset: 0, animated: false });
   }, [professions]);
 
+  const handlePress = useCallback(
+    (qualification: Qualification) => {
+      setSelectedQualification(qualification);
+      setShowModal(true);
+    },
+    [setShowModal, setSelectedQualification],
+  );
+
   return (
     <View style={styles.container}>
       <List
@@ -35,15 +43,7 @@ const Professions = ({
         dataArray={professions}
         contentContainerStyle={styles.contentContainer}
         renderItem={({ item }: { item: Profession }) => {
-          return (
-            <Item
-              profession={item}
-              onPress={qualification => {
-                setSelectedQualification(qualification);
-                setShowModal(true);
-              }}
-            />
-          );
+          return <Item profession={item} onPress={handlePress} />;
         }}
         ListEmptyComponent={<ListEmpty />}
         keyExtractor={item => item.id}

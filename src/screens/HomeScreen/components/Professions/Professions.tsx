@@ -12,7 +12,6 @@ export interface ProfessionsProps
   extends Pick<FlatListProps<Profession>, 'refreshing' | 'onRefresh'> {
   professions: Profession[];
 }
-
 const Professions = ({
   professions,
   refreshing,
@@ -35,6 +34,13 @@ const Professions = ({
     },
     [setShowModal, setSelectedQualification],
   );
+  const renderItem = useCallback(
+    ({ item }: { item: Profession }) => {
+      return <Item profession={item} onPress={handlePress} />;
+    },
+    [handlePress],
+  );
+  const keyExtractor = useCallback(item => item.id, []);
 
   return (
     <View style={styles.container}>
@@ -42,11 +48,9 @@ const Professions = ({
         ref={listRef}
         dataArray={professions}
         contentContainerStyle={styles.contentContainer}
-        renderItem={({ item }: { item: Profession }) => {
-          return <Item profession={item} onPress={handlePress} />;
-        }}
+        renderItem={renderItem}
         ListEmptyComponent={<ListEmpty />}
-        keyExtractor={item => item.id}
+        keyExtractor={keyExtractor}
         refreshControl={
           <RefreshControl
             refreshing={refreshing ?? false}

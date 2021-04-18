@@ -42,6 +42,7 @@ const Header = ({ onSearch }: HeaderProps) => {
           onChangeText={setSearch}
           value={search}
           ref={inputRef}
+          allowFontScaling={false}
         />
       </Item>
       <View>

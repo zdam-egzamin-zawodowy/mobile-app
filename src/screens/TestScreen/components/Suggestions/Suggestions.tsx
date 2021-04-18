@@ -24,7 +24,7 @@ const Suggestions = ({ qualifications }: SuggestionsProps) => {
           qualifications.length === 0 ? styles.fullHeight : {},
         ]}
       >
-        Niestety, ale do wybranej kwalifikacji nie zostały dodane żadne pytania.
+        Do wybranej kwalifikacji nie zostały dodane żadne pytania.
       </H1>
       {qualifications.length > 0 && (
         <View style={styles.similarQualificationsContainer}>
@@ -45,31 +45,33 @@ const Suggestions = ({ qualifications }: SuggestionsProps) => {
                   </Body>
                 </CardItem>
                 <CardItem>
-                  {QUESTIONS.map(question => {
-                    return (
-                      <Button
-                        key={question}
-                        onPress={() => {
-                          navigation.navigate(Screen.Test, {
-                            qualificationID: qualification.id,
-                            limit: question,
-                          });
-                        }}
-                        style={styles.button}
-                        small
-                      >
-                        <Text>
-                          Test {question}{' '}
-                          {polishPlurals(
-                            'pytanie',
-                            'pytania',
-                            'pytań',
-                            question,
-                          )}
-                        </Text>
-                      </Button>
-                    );
-                  })}
+                  <Body>
+                    {QUESTIONS.map(question => {
+                      return (
+                        <Button
+                          key={question}
+                          onPress={() => {
+                            navigation.navigate(Screen.Test, {
+                              qualificationID: qualification.id,
+                              limit: question,
+                            });
+                          }}
+                          full
+                          style={styles.button}
+                        >
+                          <Text>
+                            Test {question}{' '}
+                            {polishPlurals(
+                              'pytanie',
+                              'pytania',
+                              'pytań',
+                              question,
+                            )}
+                          </Text>
+                        </Button>
+                      );
+                    })}
+                  </Body>
                 </CardItem>
               </Card>
             );
@@ -95,7 +97,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   button: {
-    marginRight: 3,
+    marginBottom: 3,
   },
   similarQualificationsHeading: {
     marginBottom: 10,

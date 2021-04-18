@@ -19,13 +19,13 @@ const ModeSelector = ({ mode, onChangeMode }: ModeSelectorProps) => {
         onPress={() => onChangeMode(Mode.All)}
         active={mode === Mode.All}
       >
-        <Text>Wszystkie</Text>
+        <Text allowFontScaling={false}>Wszystkie</Text>
       </Button>
       <Button
         onPress={() => onChangeMode(Mode.Saved)}
         active={mode === Mode.Saved}
       >
-        <Text>Zapisane</Text>
+        <Text allowFontScaling={false}>Zapisane</Text>
       </Button>
     </Segment>
   );

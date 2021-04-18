@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "880724390654-40phpnli27tqklqkifrb5b6uhoq7gl5q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dawidwysokinski.zdamegzaminzawodowy",
+            "certificate_hash": "03e564d2bb0aed7d04593c5cd9c7bf1cb478bd35"
+          }
+        },
+        {
           "client_id": "880724390654-d8eh9cnkc3oc21mv6s09ig8u6m78499u.apps.googleusercontent.com",
           "client_type": 3
         }

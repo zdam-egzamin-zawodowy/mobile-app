@@ -37,7 +37,7 @@ const Question = ({
             <Button
               dark
               danger
-              onPress={() => Linking.openURL(buildURL('mail', EMAIL))}
+              onPress={() => Linking.openURL(buildURL('email', EMAIL))}
             >
               <Text>Zgłoś go.</Text>
             </Button>

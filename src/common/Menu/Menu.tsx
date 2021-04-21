@@ -26,7 +26,7 @@ const Menu = ({ style, ...rest }: MenuProps) => {
             Linking.openURL(WEBSITE);
             break;
           case CONTACT_OPT_INDEX:
-            Linking.openURL(buildURL('mail', EMAIL));
+            Linking.openURL(buildURL('email', EMAIL));
             break;
         }
       },

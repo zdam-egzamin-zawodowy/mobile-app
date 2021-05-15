@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { polishPlurals } from 'polish-plurals';
+import { useSavedQualifications } from 'libs/savedqualifications';
 import { Answer, Question } from 'libs/graphql';
 
 import { StyleSheet } from 'react-native';
@@ -13,6 +14,7 @@ export interface SummaryTabProps {
   questions: Question[];
   finishTest: () => void;
   resetTest: () => void;
+  qualificationID: number;
 }
 
 const SummaryTab = ({
@@ -21,7 +23,9 @@ const SummaryTab = ({
   questions,
   finishTest,
   resetTest,
+  qualificationID,
 }: SummaryTabProps) => {
+  const { isSaved, saveQualification } = useSavedQualifications();
   const correctAnswers = useMemo(() => {
     return answers.filter(
       (answer, index) => questions[index].correctAnswer === answer,
@@ -46,6 +50,15 @@ const SummaryTab = ({
             {polishPlurals('pytanie', 'pytania', 'pytań', correctAnswers)} z{' '}
             {total}.
           </H3>
+          {!isSaved(qualificationID) && (
+            <Button
+              full
+              style={styles.smallMB}
+              onPress={() => saveQualification(qualificationID, true)}
+            >
+              <Text>Zapisz kwalifikację</Text>
+            </Button>
+          )}
           <Button full onPress={resetTest}>
             <Text>Spróbuj ponownie</Text>
           </Button>
@@ -64,6 +77,9 @@ const SummaryTab = ({
 const styles = StyleSheet.create({
   textAlignCenter: {
     textAlign: 'center',
+  },
+  smallMB: {
+    marginBottom: 5,
   },
   mb: {
     marginBottom: 15,

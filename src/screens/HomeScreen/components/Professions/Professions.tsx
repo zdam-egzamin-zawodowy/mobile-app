@@ -1,28 +1,20 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { useUpdateEffect } from 'react-use';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSavedQualifications } from 'libs/savedqualifications';
-import { Maybe, Profession, Qualification } from 'libs/graphql';
+import { Maybe, Qualification } from 'libs/graphql';
 import { Mode } from '../ModeSelector/ModeSelector';
+import useScrollTopOnSearchOrModeChange from './useScrollTopOnSearchOrModeChange';
+import useProfessions from './useProfessions';
 
-import {
-  FlatList,
-  FlatListProps,
-  RefreshControl,
-  StyleSheet,
-} from 'react-native';
+import { StyleSheet } from 'react-native';
 import { View } from 'native-base';
-import ListItem, { ListItemProps } from './ListItem';
-import ListEmpty from './ListEmpty';
+import List, { Item } from './List/List';
 import QualificationModal from './QualificationModal';
+import NetworkConnectionAlert from './NetworkConnectionAlert';
 
-export interface ListProps
-  extends Pick<FlatListProps<Profession>, 'refreshing' | 'onRefresh'> {
-  professions: Profession[];
+export interface ProfessionsProps {
   mode: Mode;
   search: string;
 }
-
-const noop = () => {};
 
 const ID_SEPARATOR = '.';
 const getQualificationAndProfessionID = (str: string): [number, number] => {
@@ -30,22 +22,23 @@ const getQualificationAndProfessionID = (str: string): [number, number] => {
   return [parseInt(professionID, 10), parseInt(qualificationID, 10)];
 };
 
-const MyList = ({
-  professions,
-  refreshing,
-  onRefresh,
-  mode,
-  search,
-}: ListProps) => {
-  const listRef = useRef<any>(null);
+const Professions = ({ mode, search }: ProfessionsProps) => {
   const [selectedQualification, setSelectedQualification] = useState<
     Maybe<Qualification>
   >(null);
-  const [showModal, setShowModal] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [listItems, setListItems] = useState<Item[]>([]);
+  const {
+    refetch,
+    refetching,
+    professions,
+    error,
+    loading: professionsLoading,
+  } = useProfessions();
   const { isSaved } = useSavedQualifications();
-  useUpdateEffect(() => {
-    listRef.current?._root?.scrollToOffset({ offset: 0, animated: false });
-  }, [mode, search]);
+  const listRef = useScrollTopOnSearchOrModeChange(search, mode);
+
   const handlePress = useCallback(
     (id: string) => {
       const [professionID, qualificationID] = getQualificationAndProfessionID(
@@ -58,18 +51,18 @@ const MyList = ({
         );
         if (qualification) {
           setSelectedQualification(qualification);
-          setShowModal(true);
+          setIsModalVisible(true);
         }
       }
     },
-    [setShowModal, setSelectedQualification, professions],
+    [setIsModalVisible, setSelectedQualification, professions],
   );
-  const renderItem = useCallback(({ item }: { item: ListItemProps }) => {
-    return <ListItem {...item} />;
-  }, []);
-  const keyExtractor = useCallback(item => item.id, []);
-  const listItems = useMemo(() => {
-    let items: ListItemProps[] = [];
+
+  useEffect(() => {
+    if (professionsLoading) {
+      return;
+    }
+    let items: Item[] = [];
     professions.forEach(profession => {
       const qualifications = profession.qualifications
         .filter(
@@ -80,7 +73,7 @@ const MyList = ({
             (mode === Mode.All || isSaved(qualification.id)),
         )
         .map(
-          (qualification): ListItemProps => {
+          (qualification): Item => {
             return {
               text: `${qualification.name} (${qualification.code})`,
               itemDivider: false,
@@ -98,38 +91,32 @@ const MyList = ({
             itemHeader: true,
             itemDivider: true,
             id: 'P' + profession.id,
-          } as ListItemProps,
+          } as Item,
           ...qualifications,
         ];
       }
     });
-    return items;
-  }, [professions, search, mode, isSaved, handlePress]);
+
+    setListItems(items);
+    setIsLoading(false);
+  }, [professions, search, mode, isSaved, handlePress, professionsLoading]);
 
   return (
     <View style={styles.container}>
-      <FlatList
+      <List
         ref={listRef}
-        data={listItems}
+        items={listItems}
+        refreshing={refetching}
+        onRefresh={refetch}
+        loading={isLoading}
         contentContainerStyle={styles.contentContainer}
-        renderItem={renderItem}
-        ListEmptyComponent={<ListEmpty />}
-        keyExtractor={keyExtractor}
-        maxToRenderPerBatch={5}
-        onEndReachedThreshold={0.75}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing ?? false}
-            onRefresh={onRefresh ?? noop}
-          />
-        }
-        initialNumToRender={10}
       />
       <QualificationModal
-        onPressBackdrop={() => setShowModal(false)}
+        onPressBackdrop={() => setIsModalVisible(false)}
         qualification={selectedQualification}
-        visible={showModal}
+        visible={isModalVisible}
       />
+      <NetworkConnectionAlert error={error} />
     </View>
   );
 };
@@ -143,4 +130,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MyList;
+export default Professions;

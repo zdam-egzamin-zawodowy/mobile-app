@@ -49,7 +49,7 @@ const QualificationModal = ({
         <Card style={styles.card}>
           <ScrollView pointerEvents={'box-none'}>
             <CardItem header bordered style={styles.cardHeader}>
-              <Body style={{ flex: 3, alignSelf: 'center' }}>
+              <Body style={styles.body}>
                 <Text>
                   {qualification?.name} ({qualification?.code})
                 </Text>
@@ -67,7 +67,7 @@ const QualificationModal = ({
                   <Icon
                     type="Entypo"
                     name={isSaved ? 'star' : 'star-outlined'}
-                    style={{ fontSize: 30 }}
+                    style={styles.icon}
                   />
                 </Button>
               </Right>
@@ -133,6 +133,8 @@ const styles = StyleSheet.create({
   star: {
     flex: 1,
   },
+  body: { flex: 3, alignSelf: 'center' },
+  icon: { fontSize: 30 },
 });
 
 export default QualificationModal;

@@ -43,6 +43,7 @@ const Header = ({ onSearch }: HeaderProps) => {
           value={search}
           ref={inputRef}
           allowFontScaling={false}
+          clearButtonMode="always"
         />
       </Item>
       <View>

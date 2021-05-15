@@ -14,9 +14,7 @@ const Stack = createStackNavigator<AppStackParamList>();
 const AppStack = createStackNavigator<AppStackParamList>();
 
 const AppScreens = () => (
-  <AppStack.Navigator
-    screenOptions={{ animationEnabled: false, headerShown: false }}
-  >
+  <AppStack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name={Screen.Home} component={HomeScreen} />
     <Stack.Screen name={Screen.Test} component={TestScreen} />
   </AppStack.Navigator>

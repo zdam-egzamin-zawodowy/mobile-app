@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { H1, Content } from 'native-base';
+import { H1, View } from 'native-base';
 
 const ListEmpty = () => {
   return (
-    <Content padder contentContainerStyle={styles.wrapper}>
+    <View padder style={styles.wrapper}>
       <H1 style={styles.heading}>Nie znaleziono żadnej kwalifikacji</H1>
-    </Content>
+    </View>
   );
 };
 

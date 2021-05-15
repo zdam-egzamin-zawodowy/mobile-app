@@ -5,7 +5,7 @@ import { Query, QueryProfessionsArgs } from 'libs/graphql';
 import { QUERY_PROFESSIONS } from './queries';
 
 import { Container, Content, Spinner } from 'native-base';
-import Professions from './components/Professions/Professions';
+import List from './components/List/List';
 import Header from './components/Header/Header';
 import ModeSelector, { Mode } from './components/ModeSelector/ModeSelector';
 import NetworkConnectionAlert from './components/NetworkConnectionAlert/NetworkConnectionAlert';
@@ -37,7 +37,7 @@ const HomeScreen = () => {
           <Spinner color={variables.brandPrimary} size="large" />
         </Content>
       ) : (
-        <Professions
+        <List
           professions={professions}
           refreshing={networkStatus === NetworkStatus.refetch}
           onRefresh={refetch}

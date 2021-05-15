@@ -92,6 +92,7 @@ const Test = ({ questions, onReset, qualification }: TestProps) => {
           questions={questions}
           resetTest={onReset}
           finishTest={handleFinishTest}
+          qualificationID={qualification.id}
         />
       </Tab>
     </Tabs>

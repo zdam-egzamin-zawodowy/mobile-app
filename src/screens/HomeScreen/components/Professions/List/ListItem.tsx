@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback } from 'react';
+import React, { Fragment, useCallback, memo } from 'react';
 import { Icon, Left, ListItem, NativeBase, Right, Text } from 'native-base';
 
 export interface ListItemProps
@@ -43,4 +43,4 @@ const MyListItem = ({
   );
 };
 
-export default React.memo(MyListItem);
+export default memo(MyListItem);

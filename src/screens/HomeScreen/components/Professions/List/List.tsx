@@ -29,7 +29,6 @@ const MyList = forwardRef<FlatList<Item>, ListProps>(
     }, []);
     const keyExtractor = useCallback(item => item.id, []);
 
-    console.log('render');
     return (
       <FlatList
         data={items}

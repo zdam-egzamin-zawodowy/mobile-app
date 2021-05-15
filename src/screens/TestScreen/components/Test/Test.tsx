@@ -31,7 +31,7 @@ const Test = ({ questions, onReset, qualification }: TestProps) => {
     analytics().logEvent(Event.StartTest, analyticsParams);
   }, [analyticsParams]);
 
-  const createSelectAnswerHandler = (index: number) => (answer: Answer) => {
+  const handleSelectAnswer = (index: number, answer: Answer) => {
     if (reviewMode) {
       return;
     }
@@ -73,14 +73,14 @@ const Test = ({ questions, onReset, qualification }: TestProps) => {
           <Tab
             key={question.id}
             heading={`Pytanie ${index + 1}`}
-            textStyle={reviewMode ? textStyleReviewMode : []}
-            activeTextStyle={reviewMode ? textStyleReviewMode : []}
+            textStyle={reviewMode ? textStyleReviewMode : undefined}
+            activeTextStyle={reviewMode ? textStyleReviewMode : undefined}
           >
             <Question
               question={question}
               reviewMode={reviewMode}
               selectedAnswer={selectedAnswers[index]}
-              selectAnswer={createSelectAnswerHandler(index)}
+              selectAnswer={answer => handleSelectAnswer(index, answer)}
             />
           </Tab>
         );

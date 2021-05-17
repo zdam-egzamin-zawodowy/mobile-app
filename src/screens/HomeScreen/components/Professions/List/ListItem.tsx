@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, memo } from 'react';
+import React, { Fragment, useMemo, memo } from 'react';
 import { Icon, Left, ListItem, NativeBase, Right, Text } from 'native-base';
 
 export interface ListItemProps
@@ -15,10 +15,13 @@ const MyListItem = ({
   itemHeader,
   id,
 }: ListItemProps) => {
-  const handlePress = useCallback(() => {
+  const handlePress = useMemo(() => {
     if (onPress && id) {
-      onPress(id);
+      return () => {
+        onPress(id);
+      };
     }
+    return undefined;
   }, [onPress, id]);
 
   return (

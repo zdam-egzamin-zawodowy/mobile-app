@@ -7,6 +7,7 @@ import { Query, Scalars } from 'libs/graphql';
 import { AppStackParamList, Screen } from 'config/routing';
 import { QUERY_GENERATE_TEST_SIMILAR_QUALIFICATIONS_QUALIFICATION } from './queries';
 
+import { StyleSheet } from 'react-native';
 import { Container, Spinner } from 'native-base';
 import QualificationNotFound from './components/QualificationNotFound/QualificationNotFound';
 import Header from './components/Header/Header';
@@ -50,15 +51,15 @@ const TestScreen = ({ route }: TestScreenProps) => {
         )}`}
       />
       {loading || networkStatus === NetworkStatus.refetch ? (
-        <Content>
-          <Spinner color={variables.brandPrimary} />
+        <Content contentContainerStyle={styles.spinnerWrapper}>
+          <Spinner color={variables.brandPrimary} size="large" />
         </Content>
       ) : data?.qualification ? (
         data?.generateTest?.length ? (
           <Test
             qualification={data.qualification}
             questions={data.generateTest}
-            onReset={() => refetch(undefined)}
+            onReset={refetch}
           />
         ) : (
           <Suggestions
@@ -71,5 +72,11 @@ const TestScreen = ({ route }: TestScreenProps) => {
     </Container>
   );
 };
+
+const styles = StyleSheet.create({
+  spinnerWrapper: {
+    justifyContent: 'center',
+  },
+});
 
 export default TestScreen;

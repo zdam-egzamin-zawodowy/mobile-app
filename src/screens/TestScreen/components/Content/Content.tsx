@@ -1,14 +1,18 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Content as ContentNB } from 'native-base';
+import { Content as ContentNB, NativeBase } from 'native-base';
 
 export interface ContentProps {
   children?: React.ReactNode;
+  contentContainerStyle?: NativeBase.Content['contentContainerStyle'];
 }
 
-const Content = ({ children }: ContentProps) => {
+const Content = ({ children, contentContainerStyle }: ContentProps) => {
   return (
-    <ContentNB padder contentContainerStyle={styles.contentContainer}>
+    <ContentNB
+      padder
+      contentContainerStyle={[styles.contentContainer, contentContainerStyle]}
+    >
       {children}
     </ContentNB>
   );

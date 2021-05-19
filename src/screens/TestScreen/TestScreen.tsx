@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { polishPlurals } from 'polish-plurals';
 import { NetworkStatus, useQuery } from '@apollo/client';
 import { RouteProp } from '@react-navigation/native';
@@ -39,6 +39,12 @@ const TestScreen = ({ route }: TestScreenProps) => {
     },
     notifyOnNetworkStatusChange: true,
   });
+  const handleReset = useCallback(() => {
+    refetch(undefined);
+  }, [refetch]);
+  const suggestions = useMemo(() => data?.similarQualifications.items ?? [], [
+    data,
+  ]);
 
   return (
     <Container>
@@ -59,12 +65,10 @@ const TestScreen = ({ route }: TestScreenProps) => {
           <Test
             qualification={data.qualification}
             questions={data.generateTest}
-            onReset={refetch}
+            onReset={handleReset}
           />
         ) : (
-          <Suggestions
-            qualifications={data?.similarQualifications.items ?? []}
-          />
+          <Suggestions qualifications={suggestions} />
         )
       ) : (
         <QualificationNotFound />

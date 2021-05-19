@@ -42,7 +42,7 @@ const TestScreen = ({ route }: TestScreenProps) => {
   const handleReset = useCallback(() => {
     refetch(undefined);
   }, [refetch]);
-  const suggestions = useMemo(() => data?.similarQualifications.items ?? [], [
+  const suggestions = useMemo(() => data?.similarQualifications?.items ?? [], [
     data,
   ]);
 

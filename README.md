@@ -20,7 +20,7 @@ A mobile app for practising the theoretical part of the [vocational exam](https:
 git clone git@github.com:zdam-egzamin-zawodowy/mobile-app.git
 ```
 
-2. Navigate to the directory where you have cloned this repo.
+2. Open the folder with this project in a terminal.
 3. `yarn install`
 4. `yarn run android` (iOS isn't supported)
 

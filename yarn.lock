@@ -8042,10 +8042,10 @@ react-native-vector-icons@^8.1.0:
     prop-types "^15.7.2"
     yargs "^16.1.1"
 
-react-native@0.64.0:
-  version "0.64.0"
-  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.64.0.tgz#c3bde5b638bf8bcf12bae6e094930d39cb942ab7"
-  integrity sha512-8dhSHBthgGwAjU+OjqUEA49229ThPMQH7URH0u8L0xoQFCnZO2sZ9Wc6KcbxI0x9KSmjCMFFZqRe3w3QsRv64g==
+react-native@0.64.1:
+  version "0.64.1"
+  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.64.1.tgz#cd38f5b47b085549686f34eb0c9dcd466f307635"
+  integrity sha512-jvSj+hNAfwvhaSmxd5KHJ5HidtG0pDXzoH6DaqNpU74g3CmAiA8vuk58B5yx/DYuffGq6PeMniAcwuh3Xp4biQ==
   dependencies:
     "@jest/create-cache-key-function" "^26.5.0"
     "@react-native-community/cli" "^5.0.1-alpha.0"
@@ -9969,7 +9969,7 @@ ws@^1.1.0, ws@^1.1.5:
     options ">=0.0.5"
     ultron "1.0.x"
 
-"ws@^5.2.0 || ^6.0.0 || ^7.0.0":
+"ws@^5.2.0 || ^6.0.0 || ^7.0.0", ws@^7, ws@^7.4.4:
   version "7.5.3"
   resolved "https://registry.yarnpkg.com/ws/-/ws-7.5.3.tgz#160835b63c7d97bfab418fc1b8a9fced2ac01a74"
   integrity sha512-kQ/dHIzuLrS6Je9+uv81ueZomEwH0qVYstcAQ4/Z93K8zeko9gtAbttJWzoC5ukqXY1PpoouV3+VSOqEAFt5wg==
@@ -9980,11 +9980,6 @@ ws@^6.1.4:
   integrity sha512-GIyAXC2cB7LjvpgMt9EKS2ldqr0MTrORaleiOno6TweZ6r3TKtoFQWay/2PceJ3RuBasOHzXNn5Lrw1X0bEjqA==
   dependencies:
     async-limiter "~1.0.0"
-
-ws@^7, ws@^7.4.4:
-  version "7.4.4"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-7.4.4.tgz#383bc9742cb202292c9077ceab6f6047b17f2d59"
-  integrity sha512-Qm8k8ojNQIMx7S+Zp8u/uHOx7Qazv3Yv4q68MiWWWOJhiwG5W3x7iqmRtJo8xxrciZUY4vRxUTJCKuRnF28ZZw==
 
 xcode@^2.0.0:
   version "2.1.0"

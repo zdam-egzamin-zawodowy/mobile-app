@@ -11,10 +11,10 @@ import List, { Item } from './List/List';
 import QualificationModal from './QualificationModal';
 import NetworkConnectionAlert from './NetworkConnectionAlert';
 
-export interface ProfessionsProps {
+export type ProfessionsProps = {
   mode: Mode;
   search: string;
-}
+};
 
 const ID_SEPARATOR = '.';
 const getQualificationAndProfessionID = (str: string): [number, number] => {
@@ -44,16 +44,21 @@ const Professions = ({ mode, search }: ProfessionsProps) => {
       const [professionID, qualificationID] = getQualificationAndProfessionID(
         id,
       );
+
       const profession = professions.find(p => p.id === professionID);
-      if (profession) {
-        const qualification = profession.qualifications.find(
-          q => q.id === qualificationID,
-        );
-        if (qualification) {
-          setSelectedQualification(qualification);
-          setIsModalVisible(true);
-        }
+      if (!profession) {
+        return;
       }
+
+      const qualification = profession.qualifications.find(
+        q => q.id === qualificationID,
+      );
+      if (!qualification) {
+        return;
+      }
+
+      setSelectedQualification(qualification);
+      setIsModalVisible(true);
     },
     [setIsModalVisible, setSelectedQualification, professions],
   );
@@ -62,7 +67,9 @@ const Professions = ({ mode, search }: ProfessionsProps) => {
     if (professionsLoading) {
       return;
     }
+
     let items: Item[] = [];
+
     professions.forEach(profession => {
       const qualifications = profession.qualifications
         .filter(
@@ -70,7 +77,7 @@ const Professions = ({ mode, search }: ProfessionsProps) => {
             (!search ||
               qualification.name.toLowerCase().includes(search) ||
               qualification.code.toLowerCase().includes(search)) &&
-            (mode === Mode.All || isSaved(qualification.id)),
+            (mode === Mode.ALL || isSaved(qualification.id)),
         )
         .map(
           (qualification): Item => {
@@ -83,18 +90,21 @@ const Professions = ({ mode, search }: ProfessionsProps) => {
             };
           },
         );
-      if (qualifications.length > 0) {
-        items = [
-          ...items,
-          {
-            text: profession.name,
-            itemHeader: true,
-            itemDivider: true,
-            id: 'P' + profession.id,
-          } as Item,
-          ...qualifications,
-        ];
+
+      if (qualifications.length === 0) {
+        return;
       }
+
+      items = [
+        ...items,
+        {
+          text: profession.name,
+          itemHeader: true,
+          itemDivider: true,
+          id: 'P' + profession.id,
+        } as Item,
+        ...qualifications,
+      ];
     });
 
     setListItems(items);

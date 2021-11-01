@@ -15,9 +15,9 @@ import Suggestions from './components/Suggestions/Suggestions';
 import Test from './components/Test/Test';
 import Content from './components/Content/Content';
 
-export interface TestScreenProps {
-  route: RouteProp<AppStackParamList, Screen.Test>;
-}
+export type TestScreenProps = {
+  route: RouteProp<AppStackParamList, Screen.TEST>;
+};
 
 type QueryGenerateTestSimilarQualificationsQualificationArgs = {
   limitTest: Scalars['Int'];

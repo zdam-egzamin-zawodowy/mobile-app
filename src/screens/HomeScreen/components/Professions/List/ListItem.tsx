@@ -1,12 +1,11 @@
 import React, { Fragment, useMemo, memo } from 'react';
 import { Icon, Left, ListItem, NativeBase, Right, Text } from 'native-base';
 
-export interface ListItemProps
-  extends Pick<NativeBase.ListItem, 'itemDivider' | 'itemHeader'> {
+export type ListItemProps = {
   onPress?: (id: string) => void;
   id?: string;
   text: string;
-}
+} & Pick<NativeBase.ListItem, 'itemDivider' | 'itemHeader'>;
 
 const MyListItem = ({
   onPress,

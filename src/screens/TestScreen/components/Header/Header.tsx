@@ -12,9 +12,9 @@ import {
 } from 'native-base';
 import Menu from 'common/Menu/Menu';
 
-export interface HeaderProps {
+export type HeaderProps = {
   title: string;
-}
+};
 
 const Header = ({ title }: HeaderProps) => {
   const navigation = useNavigation();

@@ -7,7 +7,7 @@ import Professions from './components/Professions/Professions';
 
 const HomeScreen = () => {
   const [search, setSearch] = useState('');
-  const [mode, setMode] = useState(Mode.All);
+  const [mode, setMode] = useState(Mode.ALL);
 
   return (
     <Container>

@@ -19,10 +19,9 @@ import {
 } from 'native-base';
 import Modal, { ModalProps } from 'common/Modal/Modal';
 
-export interface QualificationModalProps
-  extends Pick<ModalProps, 'visible' | 'onPressBackdrop'> {
+export type QualificationModalProps = {
   qualification: Maybe<Qualification>;
-}
+} & Pick<ModalProps, 'visible' | 'onPressBackdrop'>;
 
 const QualificationModal = ({
   qualification,
@@ -81,7 +80,7 @@ const QualificationModal = ({
                       if (onPressBackdrop) {
                         onPressBackdrop();
                       }
-                      navigation.navigate(Screen.Test, {
+                      navigation.navigate(Screen.TEST, {
                         qualificationID: qualification?.id ?? 0,
                         limit: question,
                       });

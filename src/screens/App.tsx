@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { ApolloProvider } from '@apollo/client';
 import RNBootSplash from 'react-native-bootsplash';
 import { Root, StyleProvider } from 'native-base';
@@ -18,8 +18,12 @@ const BaseApp = () => {
 };
 
 const App = () => {
-  const theme = useRef(createTheme(variables)).current;
-  const client = useRef(createClient(API_URI)).current;
+  const theme = useMemo(() => {
+    return createTheme(variables);
+  }, []);
+  const client = useMemo(() => {
+    return createClient(API_URI);
+  }, []);
 
   return (
     <ApolloProvider client={client}>

@@ -1,19 +1,15 @@
-import React, { useCallback, useState } from 'react';
+import React, { PropsWithChildren, useCallback, useState } from 'react';
 import { useEffectOnce, useUpdateEffect } from 'react-use';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import analytics from '@react-native-firebase/analytics';
 import { context as Context } from './context';
 import { Event } from 'config/analytics';
 
-export interface SavedQualificationsProviderProps {
-  children?: React.ReactNode;
-}
-
 const ASYNC_STORAGE_KEY = 'saved_qualifications';
 
 export const SavedQualificationsProvider = ({
   children,
-}: SavedQualificationsProviderProps) => {
+}: PropsWithChildren<{}>) => {
   const [loading, setLoading] = useState(true);
   const [savedQualifications, setSavedQualifications] = useState<number[]>([]);
   const asyncStorage = useAsyncStorage(ASYNC_STORAGE_KEY);
@@ -54,7 +50,7 @@ export const SavedQualificationsProvider = ({
       );
 
       analytics().logEvent(
-        save ? Event.SaveQualification : Event.UnSaveQualification,
+        save ? Event.SAVE_QUALIFICATION : Event.UNSAVE_QUALIFICATION,
         {
           id: id.toString(),
         },

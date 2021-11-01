@@ -9,9 +9,9 @@ import { StyleSheet } from 'react-native';
 import { H1, View, H3, Card, CardItem, Text, Button, Body } from 'native-base';
 import Content from '../Content/Content';
 
-export interface SuggestionsProps {
+export type SuggestionsProps = {
   qualifications: Qualification[];
-}
+};
 
 const Suggestions = ({ qualifications }: SuggestionsProps) => {
   const navigation = useNavigation();
@@ -51,7 +51,7 @@ const Suggestions = ({ qualifications }: SuggestionsProps) => {
                         <Button
                           key={question}
                           onPress={() => {
-                            navigation.navigate(Screen.Test, {
+                            navigation.navigate(Screen.TEST, {
                               qualificationID: qualification.id,
                               limit: question,
                             });

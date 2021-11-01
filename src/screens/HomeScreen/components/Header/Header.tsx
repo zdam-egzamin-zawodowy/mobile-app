@@ -5,9 +5,9 @@ import { Keyboard, StyleSheet, TextInput } from 'react-native';
 import { Icon, Input, Item, Header as NBHeader, View } from 'native-base';
 import Menu from 'common/Menu/Menu';
 
-export interface HeaderProps {
+export type HeaderProps = {
   onSearch?: (search: string) => void;
-}
+};
 
 const Header = ({ onSearch }: HeaderProps) => {
   const inputRef = useRef<Input>(null);

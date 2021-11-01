@@ -66,7 +66,7 @@ export default (variables /* : * */ = variable) => {
       },
     },
     backgroundColor:
-      Platform.OS === OS.Android ? variables.footerDefaultBg : undefined,
+      Platform.OS === OS.ANDROID ? variables.footerDefaultBg : undefined,
     flexDirection: 'row',
     justifyContent: 'space-between',
     flex: 1,

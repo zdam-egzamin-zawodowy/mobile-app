@@ -12,8 +12,8 @@ export default (variables /* : * */ = variable) => {
     justifyContent: 'center',
     '.scrollable': {
       paddingHorizontal: 20,
-      flex: platform === OS.Android ? 0 : 1,
-      minWidth: platform === OS.Android ? undefined : 60,
+      flex: platform === OS.ANDROID ? 0 : 1,
+      minWidth: platform === OS.ANDROID ? undefined : 60,
     },
     'NativeBase.Text': {
       color: variables.topTabBarTextColor,

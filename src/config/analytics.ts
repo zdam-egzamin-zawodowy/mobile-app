@@ -1,7 +1,7 @@
 export enum Event {
-  SaveQualification = 'save_qualification',
-  UnSaveQualification = 'unsave_qualification',
-  StartTest = 'start_test',
-  FinishTest = 'finish_test',
-  SelectAnswer = 'select_answer',
+  SAVE_QUALIFICATION = 'save_qualification',
+  UNSAVE_QUALIFICATION = 'unsave_qualification',
+  START_TEST = 'start_test',
+  FINISH_TEST = 'finish_test',
+  SELECT_ANSWER = 'select_answer',
 }

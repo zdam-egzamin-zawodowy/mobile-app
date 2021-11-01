@@ -1,6 +1,6 @@
 export enum Screen {
-  Home = 'HomeScreen',
-  Test = 'TestScreen',
+  HOME = 'HomeScreen',
+  TEST = 'TestScreen',
 }
 
 export type TestScreenParams = {
@@ -9,6 +9,6 @@ export type TestScreenParams = {
 };
 
 export type AppStackParamList = {
-  [Screen.Home]: undefined;
-  [Screen.Test]: TestScreenParams;
+  [Screen.HOME]: undefined;
+  [Screen.TEST]: TestScreenParams;
 };

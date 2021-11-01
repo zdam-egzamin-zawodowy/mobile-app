@@ -10,12 +10,12 @@ import Content from '../Content/Content';
 import Image from './Image';
 import Alert, { AlertVariant } from './Alert';
 
-export interface QuestionProps {
+export type QuestionProps = {
   question: QuestionT;
   reviewMode: boolean;
   selectedAnswer: Answer;
   selectAnswer: (a: Answer) => void;
-}
+};
 
 const ANSWERS = Object.values(Answer);
 

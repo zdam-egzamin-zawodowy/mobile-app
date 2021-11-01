@@ -47,9 +47,9 @@ export default (variables /* : * */ = variable) => {
       shadowOffset: null,
       shadowRadius: null,
       shadowOpacity: null,
-      paddingTop: platform === OS.Android ? StatusBar.currentHeight : undefined,
+      paddingTop: platform === OS.ANDROID ? StatusBar.currentHeight : undefined,
       height:
-        platform === OS.Android
+        platform === OS.ANDROID
           ? variables.toolbarHeight + (StatusBar.currentHeight ?? 0)
           : variables.toolbarHeight,
     },

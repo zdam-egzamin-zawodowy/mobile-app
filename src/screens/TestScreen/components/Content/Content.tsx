@@ -2,10 +2,10 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Content as ContentNB, NativeBase } from 'native-base';
 
-export interface ContentProps {
+export type ContentProps = {
   children?: React.ReactNode;
   contentContainerStyle?: NativeBase.Content['contentContainerStyle'];
-}
+};
 
 const Content = ({ children, contentContainerStyle }: ContentProps) => {
   return (

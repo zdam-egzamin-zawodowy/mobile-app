@@ -7,11 +7,11 @@ import { ScrollableTab, Tab, Tabs } from 'native-base';
 import Question from './Question';
 import SummaryTab from './SummaryTab';
 
-export interface TestProps {
+export type TestProps = {
   questions: QuestionT[];
   onReset: () => void;
   qualification: Qualification;
-}
+};
 
 const Test = ({ questions, onReset, qualification }: TestProps) => {
   const [reviewMode, setReviewMode] = useState(false);
@@ -28,7 +28,7 @@ const Test = ({ questions, onReset, qualification }: TestProps) => {
   );
 
   useEffect(() => {
-    analytics().logEvent(Event.StartTest, analyticsParams);
+    analytics().logEvent(Event.START_TEST, analyticsParams);
   }, [analyticsParams]);
 
   const handleSelectAnswer = (index: number, answer: Answer) => {
@@ -40,7 +40,7 @@ const Test = ({ questions, onReset, qualification }: TestProps) => {
         index === index2 ? answer : otherAnswer,
       ),
     );
-    analytics().logEvent(Event.SelectAnswer, {
+    analytics().logEvent(Event.SELECT_ANSWER, {
       qualificationID: analyticsParams.qualificationID,
       questionID: questions[index].id.toString(),
       answer,
@@ -50,7 +50,7 @@ const Test = ({ questions, onReset, qualification }: TestProps) => {
 
   const handleFinishTest = () => {
     setReviewMode(true);
-    analytics().logEvent(Event.FinishTest, analyticsParams);
+    analytics().logEvent(Event.FINISH_TEST, analyticsParams);
   };
 
   return (

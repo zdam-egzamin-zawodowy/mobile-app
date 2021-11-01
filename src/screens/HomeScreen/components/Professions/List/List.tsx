@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback } from 'react';
+import React, { forwardRef } from 'react';
 
 import {
   FlatList,
@@ -11,24 +11,20 @@ import ListEmpty from './ListEmpty';
 import ListLoading from './ListLoading';
 
 export type Item = ListItemProps;
-export interface ListProps
-  extends Pick<
-    FlatListProps<Item>,
-    'refreshing' | 'onRefresh' | 'contentContainerStyle'
-  > {
+export type ListProps = {
   items: Item[];
   loading?: boolean;
-}
+} & Pick<
+  FlatListProps<Item>,
+  'refreshing' | 'onRefresh' | 'contentContainerStyle'
+>;
 
 const noop = () => {};
+const keyExtractor = (item: ListItemProps) => item.id!;
+const renderItem = ({ item }: { item: Item }) => <ListItem {...item} />;
 
-const MyList = forwardRef<FlatList<Item>, ListProps>(
+const List = forwardRef<FlatList<Item>, ListProps>(
   ({ items, refreshing, onRefresh, loading, ...rest }: ListProps, ref) => {
-    const renderItem = useCallback(({ item }: { item: Item }) => {
-      return <ListItem {...item} />;
-    }, []);
-    const keyExtractor = useCallback(item => item.id, []);
-
     return (
       <FlatList
         data={items}
@@ -61,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MyList;
+export default List;

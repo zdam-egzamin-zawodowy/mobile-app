@@ -97,7 +97,7 @@ export default (variables /* : * */ = variable) => {
       paddingTop:
         platform === OS.IOS ? variables.listItemPadding + 25 : undefined,
       paddingBottom:
-        platform === OS.Android ? variables.listItemPadding + 20 : undefined,
+        platform === OS.ANDROID ? variables.listItemPadding + 20 : undefined,
       flexDirection: 'row',
       borderColor: variables.listBorderColor,
       'NativeBase.Text': {

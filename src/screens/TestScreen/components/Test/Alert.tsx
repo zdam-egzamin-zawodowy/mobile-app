@@ -9,12 +9,12 @@ export enum AlertVariant {
   Warning = 'warning',
 }
 
-export interface AlertProps extends Pick<NativeBase.View, 'style'> {
+export type AlertProps = {
   variant?: AlertVariant;
   title: React.ReactNode;
   description?: React.ReactNode;
   actions?: React.ReactNode;
-}
+} & Pick<NativeBase.View, 'style'>;
 
 const Alert = ({
   variant = AlertVariant.Info,

@@ -211,6 +211,6 @@ export type Variables = {
 };
 
 export enum OS {
-  Android = 'android',
+  ANDROID = 'android',
   IOS = 'ios',
 }

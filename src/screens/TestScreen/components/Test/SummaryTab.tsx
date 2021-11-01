@@ -8,14 +8,14 @@ import { Button, H1, H3, Text, View } from 'native-base';
 import Content from '../Content/Content';
 import Alert from './Alert';
 
-export interface SummaryTabProps {
+export type SummaryTabProps = {
   reviewMode: boolean;
   answers: Answer[];
   questions: Question[];
   finishTest: () => void;
   resetTest: () => void;
   qualificationID: number;
-}
+};
 
 const SummaryTab = ({
   reviewMode,

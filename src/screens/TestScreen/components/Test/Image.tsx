@@ -9,9 +9,9 @@ import {
 } from 'react-native';
 import { H3 } from 'native-base';
 
-export interface ImageProps extends Pick<RNImageProps, 'style'> {
+export type ImageProps = {
   path: string;
-}
+} & Pick<RNImageProps, 'style'>;
 
 const MyImage = ({ path, style }: ImageProps) => {
   const [loading, setLoading] = useState(true);

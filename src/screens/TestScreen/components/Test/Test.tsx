@@ -1,7 +1,5 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import analytics from '@react-native-firebase/analytics';
-import { Question as QuestionT, Answer, Qualification } from 'libs/graphql';
-import { Event } from 'config/analytics';
+import React, { useState } from 'react';
+import { Answer, Qualification, Question as QuestionT } from 'libs/graphql';
 
 import { ScrollableTab, Tab, Tabs } from 'native-base';
 import Question from './Question';
@@ -19,38 +17,20 @@ const Test = ({ questions, onReset, qualification }: TestProps) => {
     new Array(questions.length).fill(''),
   );
 
-  const analyticsParams = useMemo(
-    () => ({
-      qualificationID: qualification.id.toString(),
-      questions: questions.length.toString(),
-    }),
-    [qualification, questions],
-  );
-
-  useEffect(() => {
-    analytics().logEvent(Event.START_TEST, analyticsParams);
-  }, [analyticsParams]);
-
   const handleSelectAnswer = (index: number, answer: Answer) => {
     if (reviewMode) {
       return;
     }
+
     setSelectedAnswers(answers =>
       answers.map((otherAnswer, index2) =>
         index === index2 ? answer : otherAnswer,
       ),
     );
-    analytics().logEvent(Event.SELECT_ANSWER, {
-      qualificationID: analyticsParams.qualificationID,
-      questionID: questions[index].id.toString(),
-      answer,
-      correct: questions[index].correctAnswer === answer ? '1' : '0',
-    });
   };
 
   const handleFinishTest = () => {
     setReviewMode(true);
-    analytics().logEvent(Event.FINISH_TEST, analyticsParams);
   };
 
   return (

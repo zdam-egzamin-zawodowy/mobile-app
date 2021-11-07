@@ -1,11 +1,7 @@
-import React, { useRef } from 'react';
-import analytics from '@react-native-firebase/analytics';
+import React from 'react';
 import { AppStackParamList, Screen } from 'config/routing';
 
-import {
-  NavigationContainer,
-  NavigationContainerRef,
-} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './HomeScreen/HomeScreen';
 import TestScreen from './TestScreen/TestScreen';
@@ -21,39 +17,8 @@ const AppScreens = () => (
 );
 
 const Navigation = () => {
-  const routeNameRef = useRef<string>('');
-  const navigationRef = useRef<NavigationContainerRef>(null);
-
-  const logScreenView = (route: string) => {
-    return analytics().logScreenView({
-      screen_name: route,
-      screen_class: route,
-    });
-  };
-
-  const handleReady = () => {
-    logScreenView(navigationRef.current?.getCurrentRoute()?.name ?? '');
-  };
-
-  const handleStateChange = () => {
-    const previousRouteName = routeNameRef.current;
-    const currentRouteName =
-      navigationRef.current?.getCurrentRoute()?.name ?? '';
-
-    if (previousRouteName !== currentRouteName) {
-      logScreenView(currentRouteName);
-    }
-
-    // Save the current route name for later comparision
-    routeNameRef.current = currentRouteName;
-  };
-
   return (
-    <NavigationContainer
-      ref={navigationRef}
-      onReady={handleReady}
-      onStateChange={handleStateChange}
-    >
+    <NavigationContainer>
       <AppScreens />
     </NavigationContainer>
   );

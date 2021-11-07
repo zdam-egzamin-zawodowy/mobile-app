@@ -1,9 +1,7 @@
 import React, { PropsWithChildren, useCallback, useState } from 'react';
 import { useEffectOnce, useUpdateEffect } from 'react-use';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
-import analytics from '@react-native-firebase/analytics';
 import { context as Context } from './context';
-import { Event } from 'config/analytics';
 
 const ASYNC_STORAGE_KEY = 'saved_qualifications';
 
@@ -47,13 +45,6 @@ export const SavedQualificationsProvider = ({
         save
           ? ids => [...ids, id]
           : ids => ids.filter(otherID => otherID !== id),
-      );
-
-      analytics().logEvent(
-        save ? Event.SAVE_QUALIFICATION : Event.UNSAVE_QUALIFICATION,
-        {
-          id: id.toString(),
-        },
       );
     },
     [setSavedQualifications],

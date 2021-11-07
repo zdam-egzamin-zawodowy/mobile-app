@@ -24,10 +24,6 @@ git clone git@github.com:zdam-egzamin-zawodowy/mobile-app.git
 3. `yarn install`
 4. `yarn run android` (iOS isn't supported)
 
-### Firebase (Analytics and Crashlytics)
-
-Create a new firebase project and add the app `com.dawidwysokinski.zdamegzaminzawodowy`, then download the `google-services.json` file and place it at the following location: `/android/app/google-services.json`.
-
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.

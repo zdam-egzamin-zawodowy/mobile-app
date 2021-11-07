@@ -16,7 +16,6 @@ initSentry();
 const BaseApp = () => {
   useEffect(() => {
     RNBootSplash.hide({ fade: true });
-    Sentry.nativeCrash();
   }, []);
 
   return <Navigation />;

@@ -17,7 +17,7 @@ const initSentry = () => {
         routingInstrumentation,
       }),
     ],
-    tracesSampleRate: 1.0,
+    tracesSampleRate: 0.3,
     release: __DEV__ ? 'development' : undefined,
   });
 };

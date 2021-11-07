@@ -141,7 +141,7 @@ android {
         applicationId "com.dawidwysokinski.zdamegzaminzawodowy"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 8
+        versionCode 10000
         versionName "2.0.9"
     }
     splits {

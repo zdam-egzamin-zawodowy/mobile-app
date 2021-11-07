@@ -1,8 +1,8 @@
 import { ApolloError } from '@apollo/client';
 import { useUpdateEffect } from 'react-use';
 import { Alert, Linking } from 'react-native';
+import Config from 'react-native-config';
 import buildURL from 'utils/buildURL';
-import { EMAIL } from 'config/app';
 
 export type NetworkConnectionAlertProps = {
   error?: ApolloError;
@@ -20,7 +20,8 @@ const NetworkConnectionAlert = ({ error }: NetworkConnectionAlertProps) => {
       [
         {
           text: 'Zgłoś problem',
-          onPress: () => Linking.openURL(buildURL('email', EMAIL)),
+          onPress: () =>
+            Linking.openURL(buildURL('email', Config.CONTACT_EMAIL)),
         },
         { text: 'OK' },
       ],

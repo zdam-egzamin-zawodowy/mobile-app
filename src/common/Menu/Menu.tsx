@@ -1,5 +1,5 @@
 import React from 'react';
-import { EMAIL, WEBSITE } from 'config/app';
+import Config from 'react-native-config';
 import buildURL from 'utils/buildURL';
 
 import { Linking, StyleSheet } from 'react-native';
@@ -24,10 +24,10 @@ const Menu = ({ style, ...rest }: MenuProps) => {
       index => {
         switch (index) {
           case OptionIndex.WEBSITE:
-            Linking.openURL(WEBSITE);
+            Linking.openURL(Config.WEBSITE);
             break;
           case OptionIndex.CONTACT:
-            Linking.openURL(buildURL('email', EMAIL));
+            Linking.openURL(buildURL('email', Config.CONTACT_EMAIL));
             break;
         }
       },

@@ -4,15 +4,15 @@
   "private": true,
   "scripts": {
     "postinstall": "patch-package",
-    "android": "react-native run-android",
-    "android:release": "react-native run-android --variant=release",
+    "android": "ENVFILE=.env.development react-native run-android",
+    "android:release": "ENVFILE=.env.production react-native run-android --variant=release",
+    "android:bundle-release": "cd android && ENVFILE=.env.production ./gradlew bundleRelease && cd ..",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "codegen": "graphql-codegen",
-    "adb": "adb reverse tcp:8080 tcp:8080 && adb reverse tcp:3000 tcp:3000",
-    "bundle-release": "cd android && ./gradlew bundleRelease && cd .."
+    "adb": "adb reverse tcp:8080 tcp:8080 && adb reverse tcp:3000 tcp:3000"
   },
   "dependencies": {
     "@apollo/client": "^3.3.13",
@@ -21,6 +21,7 @@
     "@react-native-picker/picker": "^1.14.0",
     "@react-navigation/native": "^5.9.4",
     "@react-navigation/stack": "^5.14.4",
+    "@sentry/react-native": "^3.2.3",
     "date-fns": "^2.19.0",
     "graphql": "^15.5.0",
     "lodash": "^4.17.21",
@@ -31,6 +32,7 @@
     "react": "17.0.2",
     "react-native": "0.66.1",
     "react-native-bootsplash": "^3.2.0",
+    "react-native-config": "^1.4.5",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-reanimated": "^2.1.0",
     "react-native-safe-area-context": "^3.2.0",

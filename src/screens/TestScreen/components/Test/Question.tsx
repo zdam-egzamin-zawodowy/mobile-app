@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
+import Config from 'react-native-config';
 import { Answer, Question as QuestionT } from 'libs/graphql';
 import { useVariables } from 'libs/native-base';
-import { EMAIL } from 'config/app';
 import buildURL from 'utils/buildURL';
 
 import { Linking, StyleSheet } from 'react-native';
@@ -37,7 +37,9 @@ const Question = ({
             <Button
               dark
               danger
-              onPress={() => Linking.openURL(buildURL('email', EMAIL))}
+              onPress={() =>
+                Linking.openURL(buildURL('email', Config.CONTACT_EMAIL))
+              }
             >
               <Text>Zgłoś go.</Text>
             </Button>

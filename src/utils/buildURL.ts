@@ -1,14 +1,13 @@
-import { CDN_URI, IMAGE_RESIZING_SERVICE } from 'config/cdn';
+import Config from 'react-native-config';
 
 const buildURL = (type: 'cdn' | 'cdnimg' | 'email', path: string): string => {
   switch (type) {
     case 'cdn':
-      return CDN_URI + path;
+      return Config.CDN_URL + '/' + path;
     case 'cdnimg':
-      return (
-        IMAGE_RESIZING_SERVICE +
-        `?url=${CDN_URI + encodeURIComponent(path)}&w=640&q=75`
-      );
+      return `${Config.WEBSITE}/_next/image?url=${
+        Config.CDN_URL + '/' + encodeURIComponent(path)
+      }&w=640&q=75`;
     case 'email':
       return `mailto:${path}`;
   }

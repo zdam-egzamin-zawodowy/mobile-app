@@ -1,17 +1,22 @@
 import 'react-native-gesture-handler';
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo } from 'react';
+import * as Sentry from '@sentry/react-native';
 import { ApolloProvider } from '@apollo/client';
 import RNBootSplash from 'react-native-bootsplash';
 import { Root, StyleProvider } from 'native-base';
 import { createClient } from 'libs/graphql';
-import { API_URI } from 'config/api';
+import Config from 'react-native-config';
 import Navigation from './Navigation';
 import { createTheme, variables } from '../libs/native-base';
 import { SavedQualificationsProvider } from '../libs/savedqualifications';
+import initSentry from '../libs/sentry/initSentry';
+
+initSentry();
 
 const BaseApp = () => {
   useEffect(() => {
     RNBootSplash.hide({ fade: true });
+    Sentry.nativeCrash();
   }, []);
 
   return <Navigation />;
@@ -22,7 +27,7 @@ const App = () => {
     return createTheme(variables);
   }, []);
   const client = useMemo(() => {
-    return createClient(API_URI);
+    return createClient(Config.API_URI);
   }, []);
 
   return (
@@ -38,4 +43,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Sentry.wrap(App);

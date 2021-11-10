@@ -18,7 +18,9 @@ const initSentry = () => {
       }),
     ],
     tracesSampleRate: 0.3,
-    release: __DEV__ ? 'development' : undefined,
+    release: __DEV__
+      ? 'com.dawidwysokinski.zdamegzaminzawodowy@development'
+      : undefined,
   });
 };
 
